@@ -8,21 +8,20 @@ class HiveHelper {
   static const String _userBoxName = 'userBox';
   static const String _userId = 'currentUser';
 
-
   // Initialize Hive and register adapters
   static Future<void> init() async {
     final appDocumentDir = await getApplicationDocumentsDirectory();
     Hive.init(appDocumentDir.path);
-    
+
     // Register adapters
     Hive.registerAdapter(UserModelAdapter());
-    
+
     // Open boxes
     await Hive.openBox<UserModel>(_userBoxName);
   }
 
   // --------------------- User CRUD Operations ---------------------
-  
+
   /// Creates or updates a user
   static Future<void> saveUser(UserModel user) async {
     final box = Hive.box<UserModel>(_userBoxName);
@@ -54,7 +53,7 @@ class HiveHelper {
       await box.put(
         _userId,
         UserModel(
-          email: email??user.email,
+          email: email ?? user.email,
           name: name ?? user.name,
           phone: phone ?? user.phone,
         ),
@@ -75,7 +74,7 @@ class HiveHelper {
   }
 
   // --------------------- Helper Methods ---------------------
-  
+
   /// Closes all boxes
   static Future<void> closeBoxes() async {
     await Hive.close();
