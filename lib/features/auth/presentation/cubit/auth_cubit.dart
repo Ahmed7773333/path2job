@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:path2job/features/auth/data/auth_remote_data_source.dart';
 import 'package:path2job/features/auth/data/models/auth_model.dart';
 
 import '../../domain/usecases/signin_usecase.dart';
@@ -34,6 +35,16 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await signInUseCase(AuthModel(email: email, password: password));
       emit(AuthSuccess());
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> logout() async {
+    emit(AuthLoading());
+    try {
+      await AuthRemoteDataSource().logout();
+      emit(LogoutSuccess());
     } catch (e) {
       emit(AuthError(e.toString()));
     }
