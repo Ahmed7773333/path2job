@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:path2job/core/constants/constants.dart';
 import 'package:path2job/hive_helper/hive_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,6 +14,7 @@ import 'my_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Gemini.init(apiKey: Constants.gimeniKey);
   HiveHelper.init();
   di.init();
   Bloc.observer = MyBlocObserver();
