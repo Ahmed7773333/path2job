@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:path2job/hive_helper/hive_helper.dart';
+import 'package:path2job/hive_helper/course_hive_helper.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -30,16 +31,16 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     _buildProfileItem(Icons.person, 'Name',
-                        HiveHelper.getUser()?.name ?? 'N/A'),
+                        UserHiveHelper.getUser()?.name ?? 'N/A'),
                     const Divider(),
                     _buildProfileItem(Icons.email, 'Email',
-                        HiveHelper.getUser()?.email ?? 'N/A'),
+                        UserHiveHelper.getUser()?.email ?? 'N/A'),
                     const Divider(),
                     _buildProfileItem(Icons.phone, 'Phone',
-                        HiveHelper.getUser()?.phone ?? 'N/A'),
+                        UserHiveHelper.getUser()?.phone ?? 'N/A'),
                     const Divider(),
                     _buildProfileItem(Icons.work, 'Job Title',
-                        HiveHelper.getUser()?.job ?? 'N/A'),
+                        UserHiveHelper.getUser()?.job ?? 'N/A'),
                   ],
                 ),
               ),
@@ -74,6 +75,8 @@ class ProfilePage extends StatelessWidget {
                     return const CircularProgressIndicator();
                   }
                   if (state is LogoutSuccess) {
+                    CourseHiveHelper.clearAllCourses();
+                    UserHiveHelper.clearAllUsers();
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.pushReplacementNamed(context, Routes.signIn);
                     });

@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
+import 'package:path2job/hive/course.dart';
+import 'package:path2job/hive_helper/course_hive_helper.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../hive/user.dart';
 
-class HiveHelper {
+class UserHiveHelper {
   // Box names
   static const String _userBoxName = 'userBox';
   static const String _userId = 'currentUser';
@@ -15,9 +17,13 @@ class HiveHelper {
 
     // Register adapters
     Hive.registerAdapter(UserModelAdapter());
+    Hive.registerAdapter(CourseAdapter());
+
 
     // Open boxes
     await Hive.openBox<UserModel>(_userBoxName);
+    await Hive.openBox<Course>(CourseHiveHelper.boxName);
+
   }
 
   // --------------------- User CRUD Operations ---------------------

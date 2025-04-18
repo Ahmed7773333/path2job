@@ -8,3 +8,9 @@ abstract class HomeLayoutState extends Equatable {
 }
 
 class HomeLayoutInitial extends HomeLayoutState {}
+
+class HomeLayoutLoading extends HomeLayoutState {}
+
+class HomeLayoutSuccess extends HomeLayoutState {}
+
+class HomeLayoutError extends HomeLayoutState {}
