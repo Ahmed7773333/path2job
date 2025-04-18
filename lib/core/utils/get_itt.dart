@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:path2job/features/auth/data/repositories/repo_impl.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
+import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 
 import '../../features/auth/data/auth_remote_data_source.dart';
 import '../../features/auth/domain/usecases/signin_usecase.dart';
@@ -25,4 +27,6 @@ void init() {
 
   // Auth Bloc
   sl.registerFactory(() => AuthCubit(sl<SignUpUseCase>(), sl<SignInUseCase>()));
+  sl.registerFactory(() => PlanCubit());
+  sl.registerFactory(() => HomeLayoutCubit());
 }

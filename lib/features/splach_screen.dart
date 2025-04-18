@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:path2job/hive_helper/hive_helper.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 
 import '../core/routes/routes.dart';
 import '../core/utils/assets.dart';
@@ -13,7 +13,7 @@ class SplachScreen extends StatelessWidget {
     await Future.delayed(const Duration(seconds: 1));
     if (!context.mounted) return;
 
-    if (HiveHelper.getUser() != null) {
+    if (UserHiveHelper.getUser() != null) {
       Navigator.of(context).pushReplacementNamed(Routes.home);
     } else {
       Navigator.of(context).pushReplacementNamed(Routes.signUp);

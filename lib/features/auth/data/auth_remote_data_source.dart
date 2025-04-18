@@ -1,4 +1,4 @@
-import 'package:path2job/hive_helper/hive_helper.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../hive/user.dart';
@@ -9,7 +9,6 @@ class AuthRemoteDataSource {
 
   Future<void> signUp(AuthModel authModel) async {
     try {
-      
       final response = await _supabase.auth.signUp(
         email: authModel.email,
         password: authModel.password,
@@ -22,7 +21,7 @@ class AuthRemoteDataSource {
 
       if (response.user == null) throw AuthException('Signup failed');
 
-      HiveHelper.saveUser(UserModel(
+      UserHiveHelper.saveUser(UserModel(
         email: authModel.email,
         name: authModel.name,
         phone: authModel.phone,
@@ -40,7 +39,7 @@ class AuthRemoteDataSource {
         password: authModel.password,
       );
       final user = res.user;
-      HiveHelper.saveUser(UserModel(
+      UserHiveHelper.saveUser(UserModel(
         email: user?.email ?? '',
         name: user?.userMetadata?['name'] ?? '',
         phone: user?.userMetadata?['phone'] ?? '',
@@ -54,7 +53,7 @@ class AuthRemoteDataSource {
   Future<void> logout() async {
     try {
       await _supabase.auth.signOut();
-      HiveHelper.deleteUser();
+      UserHiveHelper.deleteUser();
     } catch (e) {
       throw AuthException(e.toString());
     }

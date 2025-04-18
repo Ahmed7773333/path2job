@@ -3,7 +3,7 @@ import 'package:path2job/core/utils/app_color.dart';
 
 import 'home.dart';
 import 'interview.dart';
-import 'plan.dart';
+import '../../../plan/presentation/pages/plan.dart';
 import 'profile.dart';
 
 class HomeLayout extends StatefulWidget {
