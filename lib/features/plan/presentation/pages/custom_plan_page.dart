@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
-import 'add_course_sheet.dart';
+import '../widgets/add_course_sheet.dart';
 
 class CustomPlanPage extends StatefulWidget {
   const CustomPlanPage({super.key});

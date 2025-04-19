@@ -4,11 +4,11 @@ import 'package:path2job/features/auth/presentation/pages/sign_up.dart';
 import 'package:path2job/features/home%20layout/presentation/pages/home_layout.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/about_page.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/terms_page.dart';
-import 'package:path2job/features/plan/presentation/widgets/ai_plan_page.dart';
+import 'package:path2job/features/plan/presentation/pages/ai_plan_page.dart';
 import 'package:path2job/features/plan/presentation/widgets/course_detail.dart';
-import 'package:path2job/features/plan/presentation/widgets/custom_plan_page.dart';
 import 'package:path2job/features/splach_screen.dart';
 
+import '../../features/plan/presentation/pages/custom_plan_page.dart';
 import '../utils/app_animations.dart';
 
 class Routes {
