@@ -18,7 +18,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
-    const HomePage(),
+     HomePage(),
     const CareerPlanPage(),
     const InterviewPage(),
     const ProfilePage(),
