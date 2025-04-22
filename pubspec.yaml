@@ -57,6 +57,7 @@ dependencies:
   flutter_gemini: ^3.0.0
   url_launcher: ^6.3.1
   uuid: ^4.5.1
+  printing: ^5.14.2
 
 dev_dependencies:
   flutter_test:
