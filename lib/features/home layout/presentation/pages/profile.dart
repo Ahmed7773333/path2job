@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
+import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -77,6 +79,8 @@ class ProfilePage extends StatelessWidget {
                   if (state is LogoutSuccess) {
                     CourseHiveHelper.clearAllCourses();
                     UserHiveHelper.clearAllUsers();
+                    // InterviewHiveHelper.deleteAllInterviews();
+                    CategoryHiveHelper.clearAllCategories();
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       Navigator.pushReplacementNamed(context, Routes.signIn);
                     });

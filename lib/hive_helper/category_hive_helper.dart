@@ -5,7 +5,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CategoryHiveHelper {
   static const String boxName = 'categoryBox';
-  final supabase = Supabase.instance.client;
   static Future<void> syncCategoriss() async {
     try {
       final response = await Supabase.instance.client.from('category').select();
@@ -53,12 +52,13 @@ class CategoryHiveHelper {
     int? numberOfQuestions,
   }) async {
     try {
-      await Supabase.instance.client.from('category').update({
-        'name': name,
-        'numberOfQuestions': numberOfQuestions,
-      }).eq('name', categoryKey);
       final box = Hive.box<Categories>(boxName);
       final category = box.get(categoryKey);
+      await Supabase.instance.client.from('category').update({
+        'name': name ?? category!.name,
+        'numberOfQuestions': numberOfQuestions ?? category!.numberOfQuestions,
+      }).eq('name', categoryKey);
+
       if (category != null) {
         await box.put(
           categoryKey,

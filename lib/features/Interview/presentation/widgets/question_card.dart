@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:path2job/features/Interview/data/models/qa_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path2job/hive/question_answer.dart';
+
+import '../cubit/interview_cubit.dart';
 
 class QuestionCard extends StatelessWidget {
   const QuestionCard(this.question, {super.key});
-  final QA question;
+  final Interviews question;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -15,20 +18,13 @@ class QuestionCard extends StatelessWidget {
             child: Text(question.answer),
           ),
           // إمكانية حفظ/حذف السؤال
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {
-                    // saveQuestion(question);
-                  },
-                  icon: Icon(Icons.bookmark)),
-              IconButton(
-                  onPressed: () {
-                    // deleteQuestion(question);
-                  },
-                  icon: Icon(Icons.delete)),
-            ],
-          ),
+          IconButton(
+              onPressed: () {
+                context
+                    .read<InterviewCubit>()
+                    .deleteQuestion(question.keyId, question.category);
+              },
+              icon: Icon(Icons.delete)),
         ],
       ),
     );

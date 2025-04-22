@@ -1,42 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path2job/features/Interview/data/models/qa_model.dart';
+import 'package:path2job/hive/question_answer.dart';
 
 import '../cubit/interview_cubit.dart';
 import 'question_card.dart';
 
 class QuestionsList extends StatelessWidget {
-  const QuestionsList({super.key});
-
+  QuestionsList(this.questions, {super.key});
+  final List<Interviews> questions;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InterviewCubit, InterviewState>(
-        builder: (context, state) {
-      final List<QA> questions = [
-        QA('question', 'answer'),
-        QA('question', 'answer'),
-        QA('question', 'answer'),
-        QA('question', 'answer'),
-        QA('question', 'answer')
-      ];
-      // if (state is InterviewLoaded) {
-      return Expanded(
-        child: ListView.builder(
-          // itemCount: state.questions.length,
-          itemCount: 5,
-
-          itemBuilder: (context, index) {
-            return QuestionCard(
-              // state.questions[index],
-              questions[index],
-            );
-          },
-        ),
-      );
-    }
-        // return Expanded(
-        //     child: Center(child: Text("No questions generated yet")));
-        // },
-        );
+    return Expanded(
+      child: ListView.separated(
+        itemCount: questions.length,
+        itemBuilder: (context, index) {
+          return QuestionCard(
+            questions[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: 10);
+        },
+      ),
+    );
   }
 }

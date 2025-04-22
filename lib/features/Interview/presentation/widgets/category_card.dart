@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/app_color.dart';
 
 import '../../../../hive/category.dart';
@@ -12,9 +13,11 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Handle category tap
-        // For example, navigate to a new page or show a dialog
-        print('Tapped on ${category.name}');
+        Navigator.pushNamed(
+          context,
+          Routes.categoryFaq,
+          arguments: category.name,
+        );
       },
       child: Card(
         child: Padding(

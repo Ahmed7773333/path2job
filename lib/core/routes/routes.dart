@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path2job/features/Interview/presentation/widgets/category_faq.dart';
 import 'package:path2job/features/auth/presentation/pages/sign_in.dart';
 import 'package:path2job/features/auth/presentation/pages/sign_up.dart';
 import 'package:path2job/features/home%20layout/presentation/pages/home_layout.dart';
@@ -23,6 +24,7 @@ class Routes {
   static const String customPage = 'customPage';
 
   static const String courseDetails = 'courseDetails';
+  static const String categoryFaq = 'categoryFaq';
 }
 
 class RouteGenerator {
@@ -48,6 +50,11 @@ class RouteGenerator {
         final course = settings.arguments as String;
         return TopRouting(CourseDetailsPage(
           course: course,
+        ));
+      case Routes.categoryFaq:
+        final category = settings.arguments as String;
+        return TopRouting(CategoryFaq(
+          category,
         ));
 
       default:
