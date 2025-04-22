@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:path2job/core/network/gemini_helper.dart';
+import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/features/auth/data/repositories/repo_impl.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
@@ -24,9 +26,13 @@ void init() {
   // // Auth Use Cases
   sl.registerLazySingleton(() => SignInUseCase(sl<AuthRepositoryImpl>()));
   sl.registerLazySingleton(() => SignUpUseCase(sl<AuthRepositoryImpl>()));
+  sl.registerLazySingleton(() => GeminiHelper());
+
 
   // Auth Bloc
   sl.registerFactory(() => AuthCubit(sl<SignUpUseCase>(), sl<SignInUseCase>()));
   sl.registerFactory(() => PlanCubit());
   sl.registerFactory(() => HomeLayoutCubit());
+  sl.registerFactory(() => InterviewCubit(sl<GeminiHelper>()));
+
 }

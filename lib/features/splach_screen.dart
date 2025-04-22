@@ -25,6 +25,7 @@ class SplachScreen extends StatelessWidget {
     _navigateToHome(context);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Image.asset(
           Assets.logo,

@@ -11,7 +11,7 @@ class CourseHiveHelper {
   static Future<void> syncCourses() async {
     try {
       final response = await Supabase.instance.client.from('Courses').select();
-      final box = await Hive.openBox<Course>(boxName);
+      final box = await Hive.box<Course>(boxName);
       for (var course in response) {
         final courseObj = Course.fromJson(course);
         await box.put(courseObj.courseName, courseObj);
@@ -24,7 +24,7 @@ class CourseHiveHelper {
   static Future<void> addCourse(Course course) async {
     try {
       await Supabase.instance.client.from('Courses').insert(course.toJson());
-      final box = await Hive.openBox<Course>(boxName);
+      final box = await Hive.box<Course>(boxName);
       await box.put(course.courseName, course);
     } catch (e) {
       debugPrint('Error adding course: $e');
@@ -32,12 +32,12 @@ class CourseHiveHelper {
   }
 
   static Future<Course?> getCourse(String courseKey) async {
-    final box = await Hive.openBox<Course>(boxName);
+    final box = await Hive.box<Course>(boxName);
     return box.get(courseKey);
   }
 
   static Future<List<Course>> getAllCourses() async {
-    final box = await Hive.openBox<Course>(boxName);
+    final box = await Hive.box<Course>(boxName);
     return box.values.toList();
   }
 
@@ -47,7 +47,7 @@ class CourseHiveHelper {
           .from('Courses')
           .delete()
           .eq('name', courseKey);
-      final box = await Hive.openBox<Course>(boxName);
+      final box = await Hive.box<Course>(boxName);
       await box.delete(courseKey);
     } catch (e) {
       debugPrint('Error adding course: $e');

@@ -1,9 +1,13 @@
 import 'package:hive/hive.dart';
+import 'package:path2job/hive/category.dart';
 import 'package:path2job/hive/course.dart';
+import 'package:path2job/hive/question_answer.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
+import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../hive/user.dart';
+import 'category_hive_helper.dart';
 
 class UserHiveHelper {
   // Box names
@@ -18,12 +22,14 @@ class UserHiveHelper {
     // Register adapters
     Hive.registerAdapter(UserModelAdapter());
     Hive.registerAdapter(CourseAdapter());
-
+    Hive.registerAdapter(QuestionAnswerAdapter());
+    Hive.registerAdapter(CategoryAdapter());
 
     // Open boxes
     await Hive.openBox<UserModel>(_userBoxName);
     await Hive.openBox<Course>(CourseHiveHelper.boxName);
-
+    await Hive.openBox<Interviews>(InterviewHiveHelper.interviewBox);
+    await Hive.openBox<Categories>(CategoryHiveHelper.boxName);
   }
 
   // --------------------- User CRUD Operations ---------------------

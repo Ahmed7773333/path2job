@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:path2job/core/constants/constants.dart';
+import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
@@ -30,5 +31,6 @@ Future<void> main() async {
     BlocProvider(create: (_) => sl<AuthCubit>()),
     BlocProvider(create: (_) => sl<PlanCubit>()),
     BlocProvider(create: (_) => sl<HomeLayoutCubit>()),
+    BlocProvider(create: (_) => sl<InterviewCubit>()),
   ], child: MyApp()));
 }

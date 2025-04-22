@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path2job/core/utils/app_color.dart';
 
 import 'home.dart';
-import 'interview.dart';
+import '../../../Interview/presentation/pages/interview.dart';
 import '../../../plan/presentation/pages/plan.dart';
 import 'profile.dart';
 
@@ -18,7 +18,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   final PageController _pageController = PageController();
 
   final List<Widget> _pages = [
-    const HomePage(),
+     HomePage(),
     const CareerPlanPage(),
     const InterviewPage(),
     const ProfilePage(),

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:path2job/features/Interview/presentation/widgets/category_faq.dart';
 import 'package:path2job/features/auth/presentation/pages/sign_in.dart';
 import 'package:path2job/features/auth/presentation/pages/sign_up.dart';
 import 'package:path2job/features/home%20layout/presentation/pages/home_layout.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/about_page.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/terms_page.dart';
-import 'package:path2job/features/plan/presentation/widgets/ai_plan_page.dart';
+import 'package:path2job/features/plan/presentation/pages/ai_plan_page.dart';
 import 'package:path2job/features/plan/presentation/widgets/course_detail.dart';
-import 'package:path2job/features/plan/presentation/widgets/custom_plan_page.dart';
 import 'package:path2job/features/splach_screen.dart';
 
+import '../../features/plan/presentation/pages/custom_plan_page.dart';
 import '../utils/app_animations.dart';
 
 class Routes {
@@ -23,6 +24,7 @@ class Routes {
   static const String customPage = 'customPage';
 
   static const String courseDetails = 'courseDetails';
+  static const String categoryFaq = 'categoryFaq';
 }
 
 class RouteGenerator {
@@ -48,6 +50,11 @@ class RouteGenerator {
         final course = settings.arguments as String;
         return TopRouting(CourseDetailsPage(
           course: course,
+        ));
+      case Routes.categoryFaq:
+        final category = settings.arguments as String;
+        return TopRouting(CategoryFaq(
+          category,
         ));
 
       default:

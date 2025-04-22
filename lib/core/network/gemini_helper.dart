@@ -69,8 +69,8 @@ class GeminiHelper {
 
   Stream<String> streamAListOfQA(String wantedJob) {
     String prompt = '''
-    Generate 5 common interview Q&A for $wantedJob. 
-    Format: {"Q1": "A1", "Q2": "A2", ...}. 
+    Generate 1 common interview Q&A for $wantedJob. 
+    Format: {"Question as a key": "Answer as a value"}. 
     Answers should be under 50 words.
     ''';
 
@@ -111,7 +111,9 @@ class GeminiHelper {
 
   Future<Map<String, String>> collectStreamToMap(Stream<String> stream) async {
     final completeResponse = await _collectStreamToString(stream);
-    return _parseMapResponse(completeResponse);
+    final cleanedResponse =
+        completeResponse.replaceAll('```json', '').replaceAll('```', '').trim();
+    return _parseMapResponse(cleanedResponse);
   }
 
   // Private helper to accumulate stream chunks into a complete string
