@@ -17,7 +17,7 @@ import 'my_app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Gemini.init(apiKey: Constants.gimeniKey);
-  UserHiveHelper.init();
+ await UserHiveHelper.init();
   di.init();
   Bloc.observer = MyBlocObserver();
   await Supabase.initialize(
