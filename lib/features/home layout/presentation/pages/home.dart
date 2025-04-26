@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path2job/core/routes/routes.dart';
+import 'package:path2job/core/utils/app_color.dart';
 
 class HomePage extends StatelessWidget {
   final List<QuickAction> quickActions = [
@@ -16,7 +18,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,6 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {}, // Generate CV action
         child: Icon(Icons.add, color: Colors.white),
-        backgroundColor: Colors.blue[700],
       ),
     );
   }
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 56, 16, 24),
       decoration: BoxDecoration(
-        color: Colors.blue[700],
+        color: AppColor.primaryColor,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -103,7 +103,20 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
-              onTap: () {}, // Handle action
+              onTap: () {
+                // Handle action tap
+                switch (action.label) {
+                  case "Generate CV":
+                    Navigator.pushNamed(context, Routes.cvGenerator);
+                    break;
+                  case "Interview Prep":
+                    // Navigate to Interview Prep
+                    break;
+                  case "Career Plan":
+                    // Navigate to Career Plan
+                    break;
+                }
+              }, // Handle action
               child: Container(
                 width: 100,
                 padding: const EdgeInsets.all(12),
@@ -157,7 +170,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue[700],
+                      color: AppColor.secondaryColor,
                     )),
               ],
             ),
@@ -165,7 +178,8 @@ class HomePage extends StatelessWidget {
             LinearProgressIndicator(
               value: 0.65,
               backgroundColor: Colors.grey[200],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[700]!),
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(AppColor.secondaryColor),
               minHeight: 8,
               borderRadius: BorderRadius.circular(4),
             ),
@@ -229,7 +243,8 @@ class HomePage extends StatelessWidget {
                 color: Colors.blue[50],
                 shape: BoxShape.circle,
               ),
-              child: Icon(activity.icon, color: Colors.blue[700], size: 20),
+              child:
+                  Icon(activity.icon, color: AppColor.secondaryColor, size: 20),
             ),
             title: Text(activity.title,
                 style: TextStyle(fontWeight: FontWeight.w500)),

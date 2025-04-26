@@ -5,7 +5,6 @@ import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
-import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
 class ProfilePage extends StatelessWidget {

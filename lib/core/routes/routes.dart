@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path2job/features/Interview/presentation/widgets/category_faq.dart';
 import 'package:path2job/features/auth/presentation/pages/sign_in.dart';
 import 'package:path2job/features/auth/presentation/pages/sign_up.dart';
+import 'package:path2job/features/cv%20generator/presentation/pages/cv_form.dart';
 import 'package:path2job/features/home%20layout/presentation/pages/home_layout.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/about_page.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/terms_page.dart';
@@ -25,6 +26,7 @@ class Routes {
 
   static const String courseDetails = 'courseDetails';
   static const String categoryFaq = 'categoryFaq';
+  static const String cvGenerator = 'cvGenerator';
 }
 
 class RouteGenerator {
@@ -42,6 +44,10 @@ class RouteGenerator {
         return TopRouting(AboutPage());
       case Routes.terms:
         return TopRouting(TermsPage());
+      case Routes.cvGenerator:
+        return TopRouting(CVForm());
+      // return TopRouting(CVPreviewPage());
+
       case Routes.aiPage:
         return BottomRouting(AiPlanPage());
       case Routes.customPage:
