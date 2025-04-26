@@ -28,9 +28,8 @@ class _CVFormState extends State<CVForm> {
     'email': '',
     'phone': '',
     'address': '',
-    'linkedIn': '',
-    'github': '',
-    'leetCode': '',
+    'summary': '',
+    'links': [],
     'education': [],
     'skills': [],
     'projects': [],
@@ -79,21 +78,25 @@ class _CVFormState extends State<CVForm> {
   // Remove methods for each section
 
   void _generateCV() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState!.save();
 
       // Convert form data to CVData model
       final cvData = CVData(
         name: _formData['name'],
+        summary: _formData['summary'],
         profession: _formData['profession'],
         email: _formData['email'],
         phone: _formData['phone'],
         address: _formData['address'],
-        linkedIn: _formData['linkedIn'],
-        github: _formData['github'],
-        leetCode: _formData['leetCode'],
+        socialLinks: _formData['links']
+            .map((link) => SocialLink(
+                  platform: link['platform'],
+                  url: link['url'],
+                ))
+            .toList(),
         education: _formData['education']
-            .map((e) => Education(
+            .map((e) => Educations(
                   institution: e['institution'],
                   degree: e['degree'],
                   duration: e['duration'],
@@ -102,7 +105,6 @@ class _CVFormState extends State<CVForm> {
             .toList(),
         skills: _formData['skills']
             .map((s) => SkillCategory(
-                  category: s['category'],
                   skills: List<String>.from(s['skills']),
                 ))
             .toList(),

@@ -4,15 +4,14 @@ class CVData {
   final String email;
   final String phone;
   final String address;
-  final String linkedIn;
-  final String github;
-  final String leetCode;
-  final List<Education> education;
-  final List<SkillCategory> skills;
-  final List<Project> projects;
-  final List<Experience> experience;
-  final List<Course> courses;
+  final List<dynamic> socialLinks;
+  final List<dynamic> education;
+  final List<dynamic> skills;
+  final List<dynamic> projects;
+  final List<dynamic> experience;
+  final List<dynamic> courses;
   final Map<String, String> languages;
+  final String summary; // Added for professional summary
 
   CVData({
     required this.name,
@@ -20,25 +19,31 @@ class CVData {
     required this.email,
     required this.phone,
     required this.address,
-    required this.linkedIn,
-    required this.github,
-    required this.leetCode,
+    required this.socialLinks,
     required this.education,
     required this.skills,
     required this.projects,
     required this.experience,
     required this.courses,
     required this.languages,
+    required this.summary,
   });
 }
 
-class Education {
+class SocialLink {
+  final String platform;
+  final String url;
+
+  SocialLink({required this.platform, required this.url});
+}
+
+class Educations {
   final String institution;
   final String degree;
   final String duration;
   final String description;
 
-  Education({
+  Educations({
     required this.institution,
     required this.degree,
     required this.duration,
@@ -47,10 +52,9 @@ class Education {
 }
 
 class SkillCategory {
-  final String category;
   final List<String> skills;
 
-  SkillCategory({required this.category, required this.skills});
+  SkillCategory({required this.skills});
 }
 
 class Project {

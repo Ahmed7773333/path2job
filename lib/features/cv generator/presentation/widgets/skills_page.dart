@@ -1,50 +1,70 @@
 import 'package:flutter/material.dart';
+import '../../../../core/network/gemini_helper.dart';
 
 class SkillsPage extends StatefulWidget {
-  const SkillsPage({required this.formData, super.key});
   final Map<String, dynamic> formData;
+
+  const SkillsPage({required this.formData, super.key});
+
   @override
   State<SkillsPage> createState() => _SkillsPageState();
 }
 
 class _SkillsPageState extends State<SkillsPage> {
   final _skillFormKey = GlobalKey<FormState>();
-  String _newSkillCategory = '';
   String _newSkill = '';
+  final GeminiHelper _geminiHelper = GeminiHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    // Ensure skills is initialized as a list (not categories)
+    if (!widget.formData.containsKey('skills')) {
+      widget.formData['skills'] = [];
+    }
+  }
+
   void _addSkill() {
-    if (_newSkillCategory.isNotEmpty && _newSkill.isNotEmpty) {
+    if (_newSkill.isNotEmpty) {
       setState(() {
-        // Check if category exists
-        var categoryIndex = widget.formData['skills']
-            .indexWhere((s) => s['category'] == _newSkillCategory);
-        if (categoryIndex >= 0) {
-          widget.formData['skills'][categoryIndex]['skills'].add(_newSkill);
-        } else {
-          widget.formData['skills'].add({
-            'category': _newSkillCategory,
-            'skills': [_newSkill],
-          });
-        }
+        widget.formData['skills'].add(_newSkill);
         _skillFormKey.currentState?.reset();
-        _newSkillCategory = '';
         _newSkill = '';
       });
     }
   }
 
-  void _removeSkill(Map<String, dynamic> category, String skill) {
+  // Generate skills using Gemini
+  void _generateSkills() async {
+    final profession = widget.formData['profession'] ?? 'Software Engineer';
+    try {
+      final skills = await _geminiHelper
+          .collectStreamToList(_geminiHelper.streamAListOfSkills(profession));
+      setState(() {
+        // Add new skills, avoiding duplicates
+        for (var skill in skills) {
+          if (!widget.formData['skills'].contains(skill)) {
+            widget.formData['skills'].add(skill);
+          }
+        }
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error generating skills: $e')),
+      );
+    }
+  }
+
+  void _removeSkill(String skill) {
     setState(() {
-      category['skills'].remove(skill);
-      if (category['skills'].isEmpty) {
-        widget.formData['skills'].remove(category);
-      }
+      widget.formData['skills'].remove(skill);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Form(
@@ -52,25 +72,33 @@ class _SkillsPageState extends State<SkillsPage> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: InputDecoration(
-                      labelText:
-                          'Skill Category (e.g., Programming Languages)'),
-                  onChanged: (value) => _newSkillCategory = value,
-                ),
-                TextFormField(
-                  decoration:
-                      InputDecoration(labelText: 'Skill (e.g., Dart, Flutter)'),
+                  decoration: const InputDecoration(
+                      labelText: 'Skill (e.g., Dart, Flutter)'),
                   onChanged: (value) => _newSkill = value,
                 ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: _addSkill,
-                  child: Text('Add Skill'),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: _addSkill,
+                        child: const Text('Add Skill'),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: _generateSkills,
+                        child: const Text('Generate Skills'),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           _buildSkillsList(),
         ],
       ),
@@ -79,27 +107,15 @@ class _SkillsPageState extends State<SkillsPage> {
 
   Widget _buildSkillsList() {
     if (widget.formData['skills'].isEmpty) {
-      return Text('No skills added yet');
+      return const Text('No skills added yet');
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Wrap(
+      spacing: 8,
       children: widget.formData['skills']
-          .map<Widget>((skill) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(skill['category'],
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Wrap(
-                    children: skill['skills']
-                        .map<Widget>((s) => Chip(
-                              label: Text(s),
-                              deleteIcon: Icon(Icons.close, size: 16),
-                              onDeleted: () => _removeSkill(skill, s),
-                            ))
-                        .toList(),
-                  ),
-                  Divider(),
-                ],
+          .map<Widget>((skill) => Chip(
+                label: Text(skill),
+                deleteIcon: const Icon(Icons.close, size: 16),
+                onDeleted: () => _removeSkill(skill),
               ))
           .toList(),
     );

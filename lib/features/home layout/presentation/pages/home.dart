@@ -179,7 +179,7 @@ class HomePage extends StatelessWidget {
               value: 0.65,
               backgroundColor: Colors.grey[200],
               valueColor:
-                  AlwaysStoppedAnimation<Color>(AppColor.secondaryColor!),
+                  AlwaysStoppedAnimation<Color>(AppColor.secondaryColor),
               minHeight: 8,
               borderRadius: BorderRadius.circular(4),
             ),
