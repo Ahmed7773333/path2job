@@ -44,7 +44,9 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
       text: course.numberOfvideos?.toString() ?? '0',
     ).value;
     _completedVideosController.value = TextEditingController(
-      text: course.numberOfvideosDone?.toString() ?? '0',
+      text: course.done == true
+          ? course.numberOfvideos?.toString() ?? '0'
+          : course.numberOfvideosDone?.toString() ?? '0',
     ).value;
   }
 
@@ -68,6 +70,13 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             icon: const Icon(Icons.delete),
             onPressed: _showDeleteConfirmation,
           ),
+          IconButton(
+              onPressed: () {
+                context
+                    .read<PlanCubit>()
+                    .updateCourse(course.copyWith(done: !(course.done ?? false)));
+              },
+              icon:  Icon((course.done ?? false)? Icons.check_box_outline_blank:Icons.check_box)),
         ],
       ),
       body: SingleChildScrollView(
@@ -128,6 +137,16 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
               children: [
                 Expanded(
                   child: TextFormField(
+                    readOnly: course.done == true,
+                    onTap: () {
+                      if (course.done == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Course is already completed.'),
+                          ),
+                        );
+                      }
+                    },
                     controller: _completedVideosController,
                     decoration: const InputDecoration(
                       labelText: 'Completed Videos',
@@ -139,6 +158,16 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
+                    readOnly: course.done == true,
+                    onTap: () {
+                      if (course.done == true) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Course is already completed.'),
+                          ),
+                        );
+                      }
+                    },
                     controller: _totalVideosController,
                     decoration: const InputDecoration(
                       labelText: 'Total Videos',
@@ -173,7 +202,11 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
   Widget _buildProgressIndicator() {
     final total = int.tryParse(_totalVideosController.text) ?? 0;
     final completed = int.tryParse(_completedVideosController.text) ?? 0;
-    final percentage = total > 0 ? (completed / total) * 100 : 0;
+    final percentage = course.done == true
+        ? 100.0
+        : total > 0
+            ? (completed / total) * 100
+            : 0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

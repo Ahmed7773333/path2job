@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/hive/question_answer.dart';
 
-import '../cubit/interview_cubit.dart';
 import 'question_card.dart';
 
 class QuestionsList extends StatelessWidget {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -9,6 +11,25 @@ class AuthRemoteDataSource {
 
   Future<void> signUp(AuthModel authModel) async {
     try {
+      String? photoUrl;
+
+      // Upload photo to Supabase Storage if provided
+      if (authModel.photo != null) {
+        final File file = authModel.photo!;
+        final userId = DateTime.now()
+            .millisecondsSinceEpoch
+            .toString(); // Unique identifier
+        final filePath = '$userId/${file.path.split('/').last}';
+
+        // Upload to the 'user_photos' bucket
+        await _supabase.storage.from('profile.photos').upload(filePath, file);
+
+        // Get the public URL of the uploaded photo
+        photoUrl =
+            _supabase.storage.from('profile.photos').getPublicUrl(filePath);
+      }
+
+      // Sign up the user with Supabase Auth
       final response = await _supabase.auth.signUp(
         email: authModel.email,
         password: authModel.password,
@@ -16,16 +37,22 @@ class AuthRemoteDataSource {
           'name': authModel.name,
           'phone': authModel.phone,
           'job': authModel.job,
+          'photo_url': photoUrl, // Store photo URL in user metadata
         },
       );
 
       if (response.user == null) throw AuthException('Signup failed');
 
+      // Save user data to Hive
       UserHiveHelper.saveUser(UserModel(
         email: authModel.email,
         name: authModel.name,
         phone: authModel.phone,
         job: authModel.job,
+        photoUrl: photoUrl, // Save photo URL in Hive
+        photoLocal: authModel.photo != null
+            ? await authModel.photo!.readAsBytes()
+            : null,
       ));
     } catch (e) {
       throw AuthException(e.toString());

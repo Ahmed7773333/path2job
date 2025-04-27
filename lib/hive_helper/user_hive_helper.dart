@@ -6,8 +6,10 @@ import 'package:path2job/hive_helper/course_hive_helper.dart';
 import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../hive/recent_acitivty.dart';
 import '../hive/user.dart';
 import 'category_hive_helper.dart';
+import 'recent_activity_helper.dart';
 
 class UserHiveHelper {
   // Box names
@@ -24,12 +26,14 @@ class UserHiveHelper {
     Hive.registerAdapter(CourseAdapter());
     Hive.registerAdapter(QuestionAnswerAdapter());
     Hive.registerAdapter(CategoryAdapter());
+    Hive.registerAdapter(RecentAcitivtyAdapter());
 
     // Open boxes
     await Hive.openBox<UserModel>(_userBoxName);
     await Hive.openBox<Course>(CourseHiveHelper.boxName);
     await Hive.openBox<Interviews>(InterviewHiveHelper.interviewBox);
     await Hive.openBox<Categories>(CategoryHiveHelper.boxName);
+    await Hive.openBox<RecentAcitivty>(RecentActivityHelper.recentActivityBox);
   }
 
   // --------------------- User CRUD Operations ---------------------
@@ -53,22 +57,13 @@ class UserHiveHelper {
   }
 
   /// Updates specific fields of a user
-  static Future<void> updateUser({
-    String? email,
-    String? name,
-    String? phone,
-    String? photoUrl,
-  }) async {
+  static Future<void> updateUser(UserModel user) async {
     final box = Hive.box<UserModel>(_userBoxName);
     final user = box.get(_userId);
     if (user != null) {
       await box.put(
         _userId,
-        UserModel(
-          email: email ?? user.email,
-          name: name ?? user.name,
-          phone: phone ?? user.phone,
-        ),
+        user,
       );
     }
   }

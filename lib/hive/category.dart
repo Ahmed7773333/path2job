@@ -24,4 +24,14 @@ class Categories extends HiveObject {
     data['name'] = name;
     return data;
   }
+
+  copyWith({
+    int? numberOfQuestions,
+    String? name,
+  }) {
+    return Categories(
+      numberOfQuestions: numberOfQuestions ?? this.numberOfQuestions,
+      name: name ?? this.name,
+    );
+  }
 }

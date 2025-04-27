@@ -1,19 +1,38 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/auth/data/models/auth_model.dart';
-
 import '../../../../core/routes/routes.dart';
 import '../cubit/auth_cubit.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  SignUpPage({super.key});
+
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _jobController = TextEditingController();
   final _passwordController = TextEditingController();
+  File? _selectedImage;
 
-  SignUpPage({super.key});
+  // Pick image from gallery or camera
+  Future<void> _pickImage(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +49,41 @@ class SignUpPage extends StatelessWidget {
                 height: 200,
                 width: 200,
               ),
+              // Display selected image or placeholder
+              _selectedImage != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(
+                        _selectedImage!,
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(Icons.person, size: 50, color: Colors.grey),
+                    ),
+              // Buttons to pick image
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _pickImage(ImageSource.gallery),
+                    child: Text('Pick from Gallery'),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () => _pickImage(ImageSource.camera),
+                    child: Text('Take Photo'),
+                  ),
+                ],
+              ),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
@@ -38,17 +92,17 @@ class SignUpPage extends StatelessWidget {
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(labelText: 'Name'),
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.name,
               ),
               TextField(
                 controller: _phoneController,
-                decoration: InputDecoration(labelText: 'phone'),
-                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(labelText: 'Phone'),
+                keyboardType: TextInputType.phone,
               ),
               TextField(
                 controller: _jobController,
                 decoration: InputDecoration(labelText: 'Job Title'),
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
               ),
               TextField(
                 controller: _passwordController,
@@ -72,10 +126,9 @@ class SignUpPage extends StatelessWidget {
                         name: _nameController.text.trim(),
                         phone: _phoneController.text.trim(),
                         job: _jobController.text.trim(),
+                        photo: _selectedImage, // Pass the selected image
                       );
-                      context.read<AuthCubit>().signUp(
-                            authModel,
-                          );
+                      context.read<AuthCubit>().signUp(authModel);
                     },
                     child: Text('Create Account'),
                   );

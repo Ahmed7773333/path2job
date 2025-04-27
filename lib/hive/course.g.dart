@@ -22,13 +22,14 @@ class CourseAdapter extends TypeAdapter<Course> {
       link: fields[2] as String?,
       numberOfvideos: fields[3] as int?,
       numberOfvideosDone: fields[4] as int?,
+      done: fields[5] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Course obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.courseName)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class CourseAdapter extends TypeAdapter<Course> {
       ..writeByte(3)
       ..write(obj.numberOfvideos)
       ..writeByte(4)
-      ..write(obj.numberOfvideosDone);
+      ..write(obj.numberOfvideosDone)
+      ..writeByte(5)
+      ..write(obj.done);
   }
 
   @override

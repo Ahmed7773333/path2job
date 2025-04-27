@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/core/routes/routes.dart';
@@ -24,6 +26,8 @@ class ProfilePage extends StatelessWidget {
                 height: 120,
                 width: 120,
               ),
+              const SizedBox(height: 24),
+
               const SizedBox(height: 24),
 
               // User Data Section
@@ -105,6 +109,20 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+// Widget _buildProfileImage(){
+//   if()//check connection
+//   return CircleAvatar(
+//     radius: 50,
+//     backgroundImage: NetworkImage(
+//       UserHiveHelper.getUser()?.photoUrl ?? 'https://example.com/default.jpg',
+//     ),
+//   );
+//   else
+//     return CircleAvatar(
+//       radius: 50,
+//       backgroundImage: MemoryImage(UserHiveHelper.getUser()?.photoLocal ?? Uint8List(0)),
+//     );
+// }
   Widget _buildProfileItem(IconData icon, String label, String value) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),

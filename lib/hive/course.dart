@@ -18,13 +18,16 @@ class Course extends HiveObject {
   final int? numberOfvideos;
   @HiveField(CourseFields.numberOfvideosDone)
   final int? numberOfvideosDone;
+  @HiveField(CourseFields.done)
+  final bool? done;
 
   Course(
       {this.courseName,
       this.courseDescription,
       this.link,
       this.numberOfvideos,
-      this.numberOfvideosDone});
+      this.numberOfvideosDone,
+      this.done});
   Map<String, dynamic> toJson() {
     return {
       'name': courseName,
@@ -32,9 +35,11 @@ class Course extends HiveObject {
       'link': link,
       'numberOfvideos': numberOfvideos,
       'numberOfvideosDone': numberOfvideosDone,
+      'done': done,
       'key': UserHiveHelper.getUser()?.email,
     };
   }
+
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
       courseName: json['name'],
@@ -42,6 +47,24 @@ class Course extends HiveObject {
       link: json['link'],
       numberOfvideos: json['numberOfvideos'],
       numberOfvideosDone: json['numberOfvideosDone'],
+      done: json['done'],
+    );
+  }
+  copyWith({
+    String? courseName,
+    String? courseDescription,
+    String? link,
+    int? numberOfvideos,
+    int? numberOfvideosDone,
+    bool? done,
+  }) {
+    return Course(
+      courseName: courseName ?? this.courseName,
+      courseDescription: courseDescription ?? this.courseDescription,
+      link: link ?? this.link,
+      numberOfvideos: numberOfvideos ?? this.numberOfvideos,
+      numberOfvideosDone: numberOfvideosDone ?? this.numberOfvideosDone,
+      done: done ?? this.done,
     );
   }
 }
