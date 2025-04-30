@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/flutter_resume_template.dart';
-import '../../../../core/utils/src/app.dart';
 import '../../data/models/cv_model.dart';
 
 class ReviewPage extends StatelessWidget {
@@ -142,17 +141,4 @@ class ReviewPage extends StatelessWidget {
   //   );
   // }
 
-  Widget _buildReviewItem(String label, String? value) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(value ?? 'Not provided'),
-          Divider(),
-        ],
-      ),
-    );
-  }
 }

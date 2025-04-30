@@ -6,9 +6,6 @@ import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.d
 import 'package:path2job/features/Interview/presentation/widgets/add_category.dart';
 import 'package:path2job/features/Interview/presentation/widgets/category_list.dart';
 
-import '../widgets/job_input.dart';
-import '../widgets/question_bottom.dart';
-import '../widgets/question_list.dart';
 
 class InterviewPage extends StatefulWidget {
   const InterviewPage({super.key});

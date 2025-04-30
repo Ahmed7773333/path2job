@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
-import 'package:path2job/hive/category.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../hive/question_answer.dart';

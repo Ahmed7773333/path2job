@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:path2job/hive/question_answer.dart';
 import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/v4.dart';
 
 import '../../../../core/network/gemini_helper.dart';
 import '../../../../hive/category.dart';

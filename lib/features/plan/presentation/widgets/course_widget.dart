@@ -9,8 +9,11 @@ class CourseCard extends StatelessWidget {
   const CourseCard({super.key, required this.course, this.onTap});
 
   double get completionPercentage {
-    if (course.numberOfvideos == null || 
-        course.numberOfvideos == 0 || 
+if (course.done == true) {
+      return 100.0;
+    }
+    if (course.numberOfvideos == null ||
+        course.numberOfvideos == 0 ||
         course.numberOfvideosDone == null) {
       return 0;
     }
@@ -43,15 +46,15 @@ class CourseCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 8),
-              
+
               // Progress Bar
               _buildProgressIndicator(context),
               const SizedBox(height: 12),
-              
+
               // Description with expandable functionality
               _buildDescription(context),
               const SizedBox(height: 8),
-              
+
               // Completion Percentage
               _buildCompletionText(context),
             ],
@@ -69,8 +72,8 @@ class CourseCard extends StatelessWidget {
         minHeight: 8,
         backgroundColor: Colors.grey[200],
         valueColor: AlwaysStoppedAnimation<Color>(
-          completionPercentage > 0 
-              ? Theme.of(context).primaryColor 
+          completionPercentage > 0
+              ? Theme.of(context).primaryColor
               : Colors.grey,
         ),
       ),
@@ -84,7 +87,7 @@ class CourseCard extends StatelessWidget {
           text: course.courseDescription ?? 'No description available',
           style: Theme.of(context).textTheme.bodyMedium,
         );
-        
+
         final textPainter = TextPainter(
           text: textSpan,
           maxLines: 3,

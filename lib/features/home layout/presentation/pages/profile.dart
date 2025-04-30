@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/core/routes/routes.dart';
@@ -7,8 +9,29 @@ import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
-class ProfilePage extends StatelessWidget {
+import '../../../../core/network/check_internet.dart';
+import '../../../../hive_helper/interview_hive_helper.dart';
+
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late bool isConnected;
+  @override
+  void initState() {
+    // TODO: implement initState
+    checkConnect();
+    super.initState();
+  }
+
+  Future<void> checkConnect() async {
+    isConnected = await ConnectivityService().getConnectionStatus();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +48,8 @@ class ProfilePage extends StatelessWidget {
                 width: 120,
               ),
               const SizedBox(height: 24),
-
+              _buildProfileImage(),
+              const SizedBox(height: 24),
               // User Data Section
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -103,6 +127,23 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildProfileImage() {
+    if (isConnected) //check connection
+      return CircleAvatar(
+        radius: 50,
+        backgroundImage: NetworkImage(
+          UserHiveHelper.getUser()?.photoUrl ??
+              'https://example.com/default.jpg',
+        ),
+      );
+    else
+      return CircleAvatar(
+        radius: 50,
+        backgroundImage:
+            MemoryImage(UserHiveHelper.getUser()?.photoLocal ?? Uint8List(0)),
+      );
   }
 
   Widget _buildProfileItem(IconData icon, String label, String value) {

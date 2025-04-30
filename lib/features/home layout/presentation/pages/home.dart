@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/app_color.dart';
+import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
+import 'package:path2job/hive/recent_acitivty.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final List<QuickAction> quickActions = [
     QuickAction(Icons.edit_document, "Generate CV", Colors.blue),
     QuickAction(Icons.quiz, "Interview Prep", Colors.green),
     QuickAction(Icons.timeline, "Career Plan", Colors.orange),
   ];
 
-  final List<ActivityItem> recentActivities = [
-    ActivityItem("Updated CV", "2 hours ago", Icons.history),
-    ActivityItem("Completed Flutter Quiz", "1 day ago", Icons.quiz),
-    ActivityItem("Added new career goal", "3 days ago", Icons.flag),
-  ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<HomeLayoutCubit>().getAllActivties();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,38 +232,55 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildActivityList() {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: recentActivities.length,
-        separatorBuilder: (context, index) => Divider(height: 1, indent: 16),
-        itemBuilder: (context, index) {
-          final activity = recentActivities[index];
-          return ListTile(
-            leading: Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                shape: BoxShape.circle,
-              ),
-              child:
-                  Icon(activity.icon, color: AppColor.secondaryColor, size: 20),
-            ),
-            title: Text(activity.title,
-                style: TextStyle(fontWeight: FontWeight.w500)),
-            subtitle: Text(activity.time,
-                style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-            trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
-            onTap: () {}, // Handle tap
+    return BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
+      builder: (context, state) {
+        if (state is RecentAcitivtyEmpty) {
+          return Text(
+            'No recent activities found.',
           );
-        },
-      ),
+        }
+        if (state is RecentAcitivtySuccess) {
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount:
+                  context.read<HomeLayoutCubit>().recentActivities.length >= 3
+                      ? 3
+                      : context.read<HomeLayoutCubit>().recentActivities.length,
+              separatorBuilder: (context, index) =>
+                  Divider(height: 1, indent: 16),
+              itemBuilder: (context, index) {
+                final RecentAcitivty activity =
+                    context.read<HomeLayoutCubit>().recentActivities[index];
+                return ListTile(
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[50],
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(IconData(activity.icon!),
+                        color: AppColor.secondaryColor, size: 20),
+                  ),
+                  title: Text(activity.name ?? "",
+                      style: TextStyle(fontWeight: FontWeight.w500)),
+                  subtitle: Text(activity.time.toString(),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                  trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
+                  onTap: () {}, // Handle tap
+                );
+              },
+            ),
+          );
+        }
+        return CircularProgressIndicator();
+      },
     );
   }
 }
@@ -266,12 +292,4 @@ class QuickAction {
   final Color color;
 
   QuickAction(this.icon, this.label, this.color);
-}
-
-class ActivityItem {
-  final String title;
-  final String time;
-  final IconData icon;
-
-  ActivityItem(this.title, this.time, this.icon);
 }

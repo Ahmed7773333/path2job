@@ -18,11 +18,13 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       await signUpUseCase(AuthModel(
-          email: model.email,
-          password: model.password,
-          name: model.name,
-          phone: model.phone,
-          job: model.job));
+        email: model.email,
+        password: model.password,
+        name: model.name,
+        phone: model.phone,
+        job: model.job,
+        photo: model.photo,
+      ));
       emit(AuthSuccess());
     } catch (e) {
       debugPrint(e.toString());
