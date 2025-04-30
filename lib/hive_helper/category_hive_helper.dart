@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path2job/hive/category.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CategoryHiveHelper {
   static const String boxName = 'categoryBox';
   static Future<void> syncCategoriss() async {
     try {
-      final response = await Supabase.instance.client.from('category').select();
+      final response = await Supabase.instance.client
+          .from('category')
+          .select()
+          .eq('key', (UserHiveHelper.getUser()?.email)!);
       final box = await Hive.box<Categories>(boxName);
       for (var course in response) {
         final courseObj = Categories.fromJson(course);

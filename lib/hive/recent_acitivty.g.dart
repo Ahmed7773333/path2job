@@ -20,19 +20,22 @@ class RecentAcitivtyAdapter extends TypeAdapter<RecentAcitivty> {
       name: fields[0] as String?,
       route: fields[1] as String?,
       time: fields[2] as DateTime?,
+      icon: fields[3] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, RecentAcitivty obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.route)
       ..writeByte(2)
-      ..write(obj.time);
+      ..write(obj.time)
+      ..writeByte(3)
+      ..write(obj.icon);
   }
 
   @override

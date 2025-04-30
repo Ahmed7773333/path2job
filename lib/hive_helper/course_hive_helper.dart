@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../hive/course.dart';
@@ -10,7 +11,10 @@ class CourseHiveHelper {
 
   static Future<void> syncCourses() async {
     try {
-      final response = await Supabase.instance.client.from('Courses').select();
+      final response = await Supabase.instance.client
+          .from('Courses')
+          .select()
+          .eq('key', (UserHiveHelper.getUser()?.email)!);
       final box = await Hive.box<Course>(boxName);
       for (var course in response) {
         final courseObj = Course.fromJson(course);

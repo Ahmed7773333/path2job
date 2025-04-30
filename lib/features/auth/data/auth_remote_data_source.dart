@@ -71,6 +71,7 @@ class AuthRemoteDataSource {
         name: user?.userMetadata?['name'] ?? '',
         phone: user?.userMetadata?['phone'] ?? '',
         job: user?.userMetadata?['job'] ?? '',
+        photoUrl: user?.userMetadata?['photo_url'] ?? '', // Use the stored URL
       ));
     } catch (e) {
       throw AuthException(e.toString());

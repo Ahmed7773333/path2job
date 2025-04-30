@@ -14,17 +14,21 @@ class RecentAcitivty extends HiveObject {
   String? route;
   @HiveField(RecentAcitivtyFields.time)
   DateTime? time;
+  @HiveField(RecentAcitivtyFields.icon)
+  int? icon;
 
   RecentAcitivty({
     this.name,
     this.route,
     this.time,
+    this.icon,
   });
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'route': route,
       'time': time?.toIso8601String(),
+      'icon': icon,
     };
   }
 
@@ -33,17 +37,20 @@ class RecentAcitivty extends HiveObject {
       name: json['name'],
       route: json['route'],
       time: DateTime.parse(json['time']),
+      icon: json['icon'],
     );
   }
   copyWith({
     String? name,
     String? route,
     DateTime? time,
+    int? icon,
   }) {
     return RecentAcitivty(
       name: name ?? this.name,
       route: route ?? this.route,
       time: time ?? this.time,
+      icon: icon ?? this.icon,
     );
   }
 }
