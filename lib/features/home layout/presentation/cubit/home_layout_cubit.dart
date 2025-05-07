@@ -19,7 +19,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutState> {
       }
       emit(HomeLayoutSuccess());
     } catch (e) {
-      emit(HomeLayoutError());
+      emit(HomeLayoutError(message: e.toString()));
     }
   }
 
@@ -35,7 +35,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutState> {
 
       emit(RecentAcitivtySuccess());
     } catch (e) {
-      emit(HomeLayoutError());
+      emit(HomeLayoutError(message: e.toString()));
     }
   }
 }

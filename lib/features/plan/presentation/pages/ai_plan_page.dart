@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/componetns.dart';
+
 class AiPlanPage extends StatefulWidget {
   const AiPlanPage({super.key});
 
@@ -35,11 +38,12 @@ class _AiPlanPageState extends State<AiPlanPage> {
       body: BlocConsumer<PlanCubit, PlanState>(
         listener: (context, state) {
           if (state is PlanGeneratingError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
+           Components.showMessage(context,
+              content: state.error,
+              icon: Icons.error,
+              color: AppColor.errorColor);
           }
-          if (state is SavingPlanSuccess) {}
+          
         },
         builder: (context, state) {
           final cubit = context.read<PlanCubit>();

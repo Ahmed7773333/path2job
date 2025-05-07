@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/features/plan/presentation/widgets/plan_content.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/componetns.dart';
 import '../widgets/empty_page.dart';
 
 class CareerPlanPage extends StatefulWidget {
@@ -24,16 +26,12 @@ class _CareerPlanPageState extends State<CareerPlanPage> {
     return BlocBuilder<PlanCubit, PlanState>(
       builder: (context, state) {
         if (state is CourseSyncLoading) {
-          return const Center(child: CircularProgressIndicator());
+          Components.circularProgressLoad(context);
         } else if (state is CourseSyncError) {
-          return Scaffold(
-            body: Center(
-              child: Text(
-                state.error,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            ),
-          );
+          Components.showMessage(context,
+              content: state.error,
+              icon: Icons.error,
+              color: AppColor.errorColor);
         } else if (state is CourseSyncEmpty) {
           return const EmptyPlanPage();
         } else if (state is CourseSyncSuccess) {

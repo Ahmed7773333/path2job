@@ -6,6 +6,8 @@ import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.d
 import 'package:path2job/features/Interview/presentation/widgets/add_category.dart';
 import 'package:path2job/features/Interview/presentation/widgets/category_list.dart';
 
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/componetns.dart';
 
 class InterviewPage extends StatefulWidget {
   const InterviewPage({super.key});
@@ -36,14 +38,12 @@ class _InterviewPageState extends State<InterviewPage> {
       body: BlocBuilder<InterviewCubit, InterviewState>(
         builder: (context, state) {
           if (state is CategoriesSyncLoading) {
-            return const Center(child: CircularProgressIndicator());
+            Components.circularProgressLoad(context);
           } else if (state is CategoriesSyncError) {
-            return Center(
-              child: Text(
-                state.message,
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            );
+            Components.showMessage(context,
+                content: state.message,
+                icon: Icons.error,
+                color: AppColor.errorColor);
           } else if (state is CategoriesSyncEmpty) {
             return Center(
               child: Image.asset(Assets.emptyFaq),

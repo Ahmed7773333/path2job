@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/utils/componetns.dart';
 import '../cubit/interview_cubit.dart';
 
 class GenerateQuestionsButton extends StatelessWidget {
@@ -11,7 +12,7 @@ class GenerateQuestionsButton extends StatelessWidget {
     return BlocBuilder<InterviewCubit, InterviewState>(
       builder: (context, state) {
         if (state is InterviewLoading) {
-          return CircularProgressIndicator();
+          Components.circularProgressLoad(context);
         }
         return ElevatedButton.icon(
           icon: Icon(Icons.auto_awesome),
