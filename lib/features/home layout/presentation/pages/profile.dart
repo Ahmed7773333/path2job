@@ -10,7 +10,8 @@ import 'package:path2job/hive_helper/course_hive_helper.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
 import '../../../../core/network/check_internet.dart';
-import '../../../../hive_helper/interview_hive_helper.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/componetns.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -96,8 +97,14 @@ class _ProfilePageState extends State<ProfilePage> {
               // Logout Button
               BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
+                  if (state is AuthError) {
+                    Components.showMessage(context,
+                        content: state.message,
+                        icon: Icons.error,
+                        color: AppColor.errorColor);
+                  }
                   if (state is AuthLoading) {
-                    return const CircularProgressIndicator();
+                    Components.circularProgressLoad(context);
                   }
                   if (state is LogoutSuccess) {
                     CourseHiveHelper.clearAllCourses();

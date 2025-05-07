@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/core/utils/assets.dart';
+import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/componetns.dart';
 import 'add_question.dart';
 import 'question_list.dart';
 
@@ -76,14 +78,12 @@ class _CategoryFaqState extends State<CategoryFaq> {
           BlocBuilder<InterviewCubit, InterviewState>(
             builder: (context, state) {
               if (state is InterviewLoading) {
-                return const Center(child: CircularProgressIndicator());
+                Components.circularProgressLoad(context);
               } else if (state is InterviewError) {
-                return Center(
-                  child: Text(
-                    state.message,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                );
+                Components.showMessage(context,
+                    content: state.message,
+                    icon: Icons.error,
+                    color: AppColor.errorColor);
               } else if (state is QuestionSyncEmpty) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

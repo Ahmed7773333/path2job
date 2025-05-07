@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/core/utils/assets.dart';
+import 'package:path2job/core/utils/componetns.dart';
 import 'package:path2job/features/auth/data/models/auth_model.dart';
 import '../../../../core/routes/routes.dart';
 import '../cubit/auth_cubit.dart';
@@ -112,11 +114,20 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 16),
               BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
+                  if (state is AuthError) {
+                    Components.showMessage(context,
+                        content: state.message,
+                        icon: Icons.error,
+                        color: AppColor.errorColor);
+                  }
                   if (state is AuthLoading) {
-                    return CircularProgressIndicator();
+                    Components.circularProgressLoad(context);
                   }
                   if (state is AuthSuccess) {
-                    Navigator.pushReplacementNamed(context, Routes.home);
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Routes.home, (route) => false);
+                    });
                   }
                   return ElevatedButton(
                     onPressed: () {

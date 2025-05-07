@@ -5,6 +5,8 @@ import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
 import 'package:path2job/hive/recent_acitivty.dart';
 
+import '../../../../core/utils/componetns.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -234,12 +236,26 @@ class _HomePageState extends State<HomePage> {
   Widget _buildActivityList() {
     return BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
       builder: (context, state) {
+        if (state is HomeLayoutError) {
+          Navigator.pop(context);
+          Components.showMessage(context,
+              content: state.message!,
+              icon: Icons.error,
+              color: AppColor.errorColor);
+        }
+        if (state is RecentAcitivtyLoading) {
+          Components.circularProgressLoad(context);
+        }
         if (state is RecentAcitivtyEmpty) {
+          Navigator.pop(context);
+
           return Text(
             'No recent activities found.',
           );
         }
         if (state is RecentAcitivtySuccess) {
+          Navigator.pop(context);
+
           return Card(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             shape: RoundedRectangleBorder(

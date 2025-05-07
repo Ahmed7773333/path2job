@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 // import 'package:shop_app/core/utils/app_colors.dart';
@@ -104,12 +105,12 @@ class Components {
     );
   }
 
-  static void circularProgressHeart(context) {
+  static void circularProgressLoad(context) {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => SpinKitPumpingHeart(
-              color: Color(0xffc02829),
+        builder: (context) => SpinKitFoldingCube(
+              color: AppColor.secondaryColor,
               size: 50.r,
             ));
   }
