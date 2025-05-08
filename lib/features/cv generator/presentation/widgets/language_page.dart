@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({required this.formData, super.key});
+
   final Map<String, dynamic> formData;
 
   @override
@@ -31,7 +33,7 @@ class _LanguagePageState extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Column(
         children: [
           Row(
@@ -42,7 +44,7 @@ class _LanguagePageState extends State<LanguagePage> {
                   onChanged: (value) => _newLanguage = value,
                 ),
               ),
-              SizedBox(width: 16),
+              SizedBox(width: 16.w),
               Expanded(
                 child: TextFormField(
                   decoration: InputDecoration(
@@ -52,12 +54,12 @@ class _LanguagePageState extends State<LanguagePage> {
               ),
             ],
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 40.h),
           ElevatedButton(
             onPressed: _addLanguage,
             child: Text('Add Language'),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 30.h),
           _buildLanguagesList(),
         ],
       ),
@@ -71,12 +73,18 @@ class _LanguagePageState extends State<LanguagePage> {
     return Column(
       children: (widget.formData['languages'] as Map)
           .entries
-          .map<Widget>((entry) => ListTile(
-                title: Text(entry.key),
-                subtitle: Text(entry.value),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () => _removeLanguage(entry.key),
+          .map<Widget>((entry) => Card(
+                elevation: 0,
+                margin: EdgeInsets.all(8.r),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.r)),
+                child: ListTile(
+                  title: Text(entry.key),
+                  subtitle: Text(entry.value),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => _removeLanguage(entry.key),
+                  ),
                 ),
               ))
           .toList(),

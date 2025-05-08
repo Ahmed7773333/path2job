@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ExperiencePage extends StatefulWidget {
   final Map<String, dynamic> formData;
@@ -46,7 +47,7 @@ class _ExperiencePageState extends State<ExperiencePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Column(
         children: [
           Form(
@@ -57,25 +58,37 @@ class _ExperiencePageState extends State<ExperiencePage> {
                   decoration: InputDecoration(labelText: 'Company'),
                   onChanged: (value) => _newCompany = value,
                 ),
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Position'),
                   onChanged: (value) => _newPosition = value,
+                ),
+                SizedBox(
+                  height: 16.h,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
                       labelText: 'Duration (e.g., Aug 2022 - Present)'),
                   onChanged: (value) => _newExpDuration = value,
                 ),
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Location'),
                   onChanged: (value) => _newLocation = value,
+                ),
+                SizedBox(
+                  height: 16.h,
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Description'),
                   maxLines: 3,
                   onChanged: (value) => _newExpDescription = value,
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 40.h),
                 ElevatedButton(
                   onPressed: _addExperience,
                   child: Text('Add Experience'),
@@ -83,7 +96,7 @@ class _ExperiencePageState extends State<ExperiencePage> {
               ],
             ),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 24.h),
           _buildExperienceList(),
         ],
       ),
@@ -96,12 +109,18 @@ class _ExperiencePageState extends State<ExperiencePage> {
     }
     return Column(
       children: widget.formData['experience']
-          .map<Widget>((exp) => ListTile(
-                title: Text(exp['company']),
-                subtitle: Text('${exp['position']} • ${exp['duration']}'),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () => _removeExperience(exp),
+          .map<Widget>((exp) => Card(
+                elevation: 0,
+                margin: EdgeInsets.all(8.r),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.r)),
+                child: ListTile(
+                  title: Text(exp['company']),
+                  subtitle: Text('${exp['position']} • ${exp['duration']}'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => _removeExperience(exp),
+                  ),
                 ),
               ))
           .toList(),

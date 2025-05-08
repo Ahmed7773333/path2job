@@ -8,7 +8,7 @@ import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/network/check_internet.dart';
 import '../../../../hive_helper/interview_hive_helper.dart';
 
@@ -38,21 +38,21 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
           child: Column(
             children: [
               // Logo at the top
               Image.asset(
                 Assets.logo,
-                height: 120,
-                width: 120,
+                height: 150.h,
+                width: 150.w,
               ),
-              const SizedBox(height: 24),
+               SizedBox(height: 12.h),
               _buildProfileImage(),
-              const SizedBox(height: 24),
+               SizedBox(height: 18.h),
               // User Data Section
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0.r),
                 child: Column(
                   children: [
                     _buildProfileItem(Icons.person, 'Name',
@@ -69,9 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-
-              const SizedBox(height: 32),
-
+              SizedBox(height: 32.h),
               // Navigation Section
               Column(
                 children: [
@@ -81,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     'About Us',
                     () => Navigator.pushNamed(context, Routes.about),
                   ),
-                  const Divider(height: 1),
+                  Divider(height: 1.h),
                   _buildNavigationTile(
                     context,
                     Icons.description,
@@ -90,9 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 32),
-
+              SizedBox(height: 32.h),
               // Logout Button
               BlocBuilder<AuthCubit, AuthState>(
                 builder: (context, state) {
@@ -114,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red[400],
                       foregroundColor: Colors.white,
-                      minimumSize: const Size(double.infinity, 50),
+                      minimumSize: Size(double.infinity, 50.h),
                     ),
                     onPressed: () {
                       context.read<AuthCubit>().logout();
@@ -132,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildProfileImage() {
     if (isConnected) //check connection
       return CircleAvatar(
-        radius: 50,
+        radius: 75.r,
         backgroundImage: NetworkImage(
           UserHiveHelper.getUser()?.photoUrl ??
               'https://example.com/default.jpg',
@@ -140,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     else
       return CircleAvatar(
-        radius: 50,
+        radius: 75.r,
         backgroundImage:
             MemoryImage(UserHiveHelper.getUser()?.photoLocal ?? Uint8List(0)),
       );
@@ -148,26 +144,26 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildProfileItem(IconData icon, String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0.w),
       child: Row(
         children: [
-          Icon(icon, size: 24),
-          const SizedBox(width: 16),
+          Icon(icon, size: 24.sp),
+          SizedBox(width: 16.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 label,
-                style: const TextStyle(
-                  fontSize: 12,
+                style: TextStyle(
+                  fontSize: 14.sp,
                   color: Colors.grey,
                 ),
               ),
-              const SizedBox(height: 4),
+              SizedBox(height: 4.h),
               Text(
                 value,
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),

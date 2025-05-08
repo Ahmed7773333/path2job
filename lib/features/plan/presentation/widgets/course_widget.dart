@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../hive/course.dart';
 
@@ -23,16 +24,16 @@ if (course.done == true) {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -45,15 +46,15 @@ if (course.done == true) {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
 
               // Progress Bar
               _buildProgressIndicator(context),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
 
               // Description with expandable functionality
               _buildDescription(context),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
 
               // Completion Percentage
               _buildCompletionText(context),
@@ -66,7 +67,7 @@ if (course.done == true) {
 
   Widget _buildProgressIndicator(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
+      borderRadius: BorderRadius.circular(4.r),
       child: LinearProgressIndicator(
         value: completionPercentage / 100,
         minHeight: 8,
@@ -104,7 +105,7 @@ if (course.done == true) {
             ),
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: EdgeInsets.only(bottom: 8.h),
                 child: Text(
                   course.courseDescription ?? '',
                   style: Theme.of(context).textTheme.bodyMedium,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
@@ -49,10 +50,6 @@ class _CustomPlanPageState extends State<CustomPlanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddCourseSheet(context),
-        child: const Icon(Icons.add),
-      ),
       appBar: AppBar(
         title: const Text('Make Your Own Career Plan'),
       ),
@@ -68,85 +65,108 @@ class _CustomPlanPageState extends State<CustomPlanPage> {
               ? state.courses
               : cubit.customCourses;
           return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            padding: EdgeInsets.all(16.0.r),
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                TextField(
-                  controller: _jobController,
-                  decoration: const InputDecoration(
-                    labelText: 'What career are you targeting?',
-                    hintText: 'e.g. Flutter Developer, Data Scientist',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Your Courses:',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: courses.isEmpty
-                      ? const Center(
-                          child: Text('No courses added yet'),
-                        )
-                      : ListView.separated(
-                          itemCount: courses.length,
-                          separatorBuilder: (_, __) => const Divider(height: 1),
-                          itemBuilder: (context, index) {
-                            final course = courses[index];
-                            final title = course.courseName;
-                            final url = course.link ?? '';
-
-                            return ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
-                              ),
-                              leading: const Icon(Icons.school),
-                              title: Text(title ?? 'Untitled Course'),
-                              subtitle: url.isNotEmpty ? Text(url) : null,
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon:
-                                        const Icon(Icons.open_in_new, size: 20),
-                                    onPressed: url.isNotEmpty
-                                        ? () => cubit.launchUrll(url)
-                                        : null,
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete, size: 20),
-                                    onPressed: () =>
-                                        cubit.deleteCustomCourse(course),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                ),
-                const SizedBox(height: 20),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () => cubit.deleteCustomPlan(),
-                        child: const Text('Delete All Courses'),
+                    TextField(
+                      controller: _jobController,
+                      decoration: const InputDecoration(
+                        labelText: 'What career are you targeting?',
+                        hintText: 'e.g. Flutter Developer, Data Scientist',
+                        border: OutlineInputBorder(),
                       ),
                     ),
-                    const SizedBox(width: 16),
+                    SizedBox(height: 20.h),
+                    Text(
+                      'Your Courses:',
+                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10.h),
                     Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          cubit.saveCustomPlan();
-                        },
-                        child: const Text('Save Plan'),
-                      ),
+                      child: courses.isEmpty
+                          ? const Center(
+                              child: Text('No courses added yet'),
+                            )
+                          : ListView.separated(
+                              itemCount: courses.length,
+                              separatorBuilder: (_, __) => Divider(height: 1.h),
+                              itemBuilder: (context, index) {
+                                final course = courses[index];
+                                final title = course.courseName;
+                                final url = course.link ?? '';
+
+                                return Card(
+                                  elevation: 0,
+                                  margin: EdgeInsets.all(8.r),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16.r)),
+                                  child: ListTile(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 16.w,
+                                      vertical: 8.h,
+                                    ),
+                                    leading: const Icon(Icons.school),
+                                    title: Text(title ?? 'Untitled Course'),
+                                    subtitle: url.isNotEmpty ? Text(url) : null,
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          icon:
+                                            Icon(Icons.open_in_new, size: 20.sp),
+                                          onPressed: url.isNotEmpty
+                                              ? () => cubit.launchUrll(url)
+                                              : null,
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.delete, size: 20.sp),
+                                          onPressed: () =>
+                                              cubit.deleteCustomCourse(course),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                    ),
+                    SizedBox(height: 20.h),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: OutlinedButton(
+                            style: ButtonStyle(fixedSize: WidgetStatePropertyAll(Size(200.w, 70.h))),
+                            onPressed: () => cubit.deleteCustomPlan(),
+                            child: const Text('Delete All Courses',textAlign: TextAlign.center,),
+                          ),
+                        ),
+                        SizedBox(width: 16.w),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ButtonStyle(fixedSize: WidgetStatePropertyAll(Size(200.w, 70.h))),
+                            onPressed: () {
+                              cubit.saveCustomPlan();
+                            },
+                            child: const Text('Save Plan'),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
+                ),
+                Positioned(
+                  bottom: 45.h,
+                  child: FloatingActionButton(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                    onPressed: () => _showAddCourseSheet(context),
+                    child: const Icon(Icons.add),
+                  ),
                 ),
               ],
             ),

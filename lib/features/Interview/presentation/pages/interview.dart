@@ -1,6 +1,7 @@
 // features/interview/presentation/pages/interview_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/features/Interview/presentation/widgets/add_category.dart';
@@ -69,8 +70,8 @@ class _InterviewPageState extends State<InterviewPage> {
         ),
         child: const AddCategorySheet(),
       ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
     );
   }

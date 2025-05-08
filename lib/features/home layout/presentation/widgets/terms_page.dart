@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/utils/app_color.dart';
 
 class TermsPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class TermsPage extends StatelessWidget {
         foregroundColor: AppColor.textColor,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,7 +22,7 @@ class TermsPage extends StatelessWidget {
               'Last Updated: January 1, 2023',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             _buildSection('1. Acceptance of Terms',
                 'By accessing or using Path2Job, you agree to be bound by these Terms. If you disagree, please refrain from using our services.'),
             _buildSection('2. User Responsibilities',
@@ -36,7 +37,7 @@ class TermsPage extends StatelessWidget {
                 'Path2Job shall not be liable for any indirect, incidental, or consequential damages arising from service use.'),
             _buildSection('7. Changes to Terms',
                 'We may modify these terms at any time. Continued use after changes constitutes acceptance.'),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             const Text(
               'For questions regarding these terms, contact legal@path2job.com',
               style: TextStyle(fontStyle: FontStyle.italic),
@@ -49,22 +50,22 @@ class TermsPage extends StatelessWidget {
 
   Widget _buildSection(String title, String content) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: EdgeInsets.only(bottom: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontSize: 18.sp,
               color: Colors.blueGrey,
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text(
             content,
-            style: const TextStyle(height: 1.5),
+            style: TextStyle(height: 1.5.h),
           ),
         ],
       ),

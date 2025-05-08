@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 
@@ -45,7 +46,7 @@ class _AiPlanPageState extends State<AiPlanPage> {
           final cubit = context.read<PlanCubit>();
 
           return Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -57,25 +58,25 @@ class _AiPlanPageState extends State<AiPlanPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 ElevatedButton(
                   onPressed: state is PlanGeneratingLoading
                       ? null
                       : () => cubit.generatePlan(_jobController.text.trim()),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
                   ),
                   child: state is PlanGeneratingLoading
                       ? const CircularProgressIndicator()
                       : const Text('Generate Plan'),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 if (cubit.generatedCourses.isNotEmpty) ...[
-                  const Text(
+                  Text(
                     'Suggested Courses:',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Expanded(
                     child: ListView.separated(
                       itemCount: cubit.generatedCourses.length,
@@ -99,7 +100,7 @@ class _AiPlanPageState extends State<AiPlanPage> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   Row(
                     children: [
                       Expanded(
@@ -109,7 +110,7 @@ class _AiPlanPageState extends State<AiPlanPage> {
                           child: const Text('Regenerate'),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16.h),
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {

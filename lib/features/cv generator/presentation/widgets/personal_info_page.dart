@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/network/gemini_helper.dart';
 
 class PersonalInfoPage extends StatefulWidget {
@@ -89,7 +90,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Form(
         key: widget.formKey,
         child: Column(
@@ -104,7 +105,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 widget.formData['name'] = value;
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextFormField(
               controller: _professionController,
               decoration: const InputDecoration(labelText: 'Profession'),
@@ -114,7 +115,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 widget.formData['profession'] = value;
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'Email'),
@@ -124,7 +125,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 widget.formData['email'] = value;
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextFormField(
               controller: _phoneController,
               decoration: const InputDecoration(labelText: 'Phone'),
@@ -134,7 +135,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 widget.formData['phone'] = value;
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextFormField(
               controller: _addressController,
               decoration: const InputDecoration(labelText: 'Address'),
@@ -143,7 +144,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 widget.formData['address'] = value;
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             // Professional Summary Field
             TextFormField(
               controller: _summaryController,
@@ -154,16 +155,16 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
               maxLines: 4,
               onChanged: (value) => widget.formData['summary'] = value,
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: _generateSummary,
               child: const Text('Generate Summary'),
             ),
             // Social Links Section
-            const SizedBox(height: 24),
-            const Text('Social Links',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
+            Text('Social Links',
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8.h),
             // Add New Link Form
             Form(
               key: _linkFormKey,
@@ -174,11 +175,12 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         labelText: 'Platform (e.g., LinkedIn)'),
                     onChanged: (value) => _newPlatform = value,
                   ),
+                  SizedBox(height: 16.h),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'URL'),
                     onChanged: (value) => _newUrl = value,
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 24.h),
                   ElevatedButton(
                     onPressed: _addSocialLink,
                     child: const Text('Add Link'),
@@ -186,7 +188,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             _buildlinksList(),
           ],
         ),
@@ -202,12 +204,17 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
     return Column(
       children: List<Widget>.generate(
         widget.formData['links'].length,
-        (index) => ListTile(
-          title: Text(widget.formData['links'][index]['platform']),
-          subtitle: Text(widget.formData['links'][index]['url']),
-          trailing: IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () => _removeSocialLink(index),
+        (index) => Card(
+          elevation: 0,
+          margin: EdgeInsets.all(8.r),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          child: ListTile(
+            title: Text(widget.formData['links'][index]['platform']),
+            subtitle: Text(widget.formData['links'][index]['url']),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () => _removeSocialLink(index),
+            ),
           ),
         ),
       ),

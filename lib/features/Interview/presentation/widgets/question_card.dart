@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/hive/question_answer.dart';
 
 import '../cubit/interview_cubit.dart';
@@ -14,7 +15,7 @@ class QuestionCard extends StatelessWidget {
         title: Text(question.question),
         children: [
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.r),
             child: Text(question.answer),
           ),
           // إمكانية حفظ/حذف السؤال

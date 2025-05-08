@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/utils/app_color.dart';
 
 class AboutPage extends StatelessWidget {
@@ -13,26 +14,26 @@ class AboutPage extends StatelessWidget {
         foregroundColor: AppColor.textColor,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            const Text(
+            SizedBox(height: 20.h),
+            Text(
               'Empowering Your Career Journey',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             _buildSectionTitle('Our Mission'),
-            const Text(
+            Text(
               'At Path2Job, we believe everyone deserves access to tools that make career development simple and effective. '
               'Our platform combines AI-driven guidance with human-centric design to help you navigate your professional path.',
-              style: TextStyle(fontSize: 16, height: 1.5),
+              style: TextStyle(fontSize: 16.sp, height: 1.5.h),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             _buildSectionTitle('What We Offer'),
             _buildFeatureItem('📌 Smart CV Builder',
                 'ATS-optimized resumes tailored to your target roles'),
@@ -40,14 +41,14 @@ class AboutPage extends StatelessWidget {
                 'Personalized learning paths for your dream job'),
             _buildFeatureItem('💼 Interview Prep',
                 'Curated questions and answers for your specific field'),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             _buildSectionTitle('Our Team'),
-            const Text(
+            Text(
               'Founded in 2023 by career development experts and technologists, '
               'our diverse team brings decades of experience in HR, tech, and education.',
-              style: TextStyle(fontSize: 16, height: 1.5),
+              style: TextStyle(fontSize: 16.sp, height: 1.5.h),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             _buildContactCard(context),
           ],
         ),
@@ -57,11 +58,11 @@ class AboutPage extends StatelessWidget {
 
   Widget _buildSectionTitle(String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: EdgeInsets.only(bottom: 8.r),
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 20,
+        style: TextStyle(
+          fontSize: 20.sp,
           fontWeight: FontWeight.w600,
           color: Colors.blueGrey,
         ),
@@ -71,27 +72,27 @@ class AboutPage extends StatelessWidget {
 
   Widget _buildFeatureItem(String title, String description) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(width: 8),
+          SizedBox(width: 8.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                   ),
                 ),
                 Text(
                   description,
                   style: TextStyle(
                     color: Colors.grey[700],
-                    height: 1.4,
+                    height: 1.4.h,
                   ),
                 ),
               ],
@@ -103,38 +104,41 @@ class AboutPage extends StatelessWidget {
   }
 
   Widget _buildContactCard(BuildContext context) {
-    return Card(
-      elevation: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const Text(
-              'Have questions?',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+    return SizedBox(
+      width: 350.w,
+      child: Card(
+        elevation: 3,
+        child: Padding(
+          padding: EdgeInsets.all(16.r),
+          child: Column(
+            children: [
+              Text(
+                'Have questions?',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Reach out to our support team at:',
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'support@path2job.com',
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.bold,
+              SizedBox(height: 10.h),
+              Text(
+                'Reach out to our support team at:',
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Visit Our Website'),
-            ),
-          ],
+              SizedBox(height: 10.h),
+              Text(
+                'support@path2job.com',
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 15.h),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Visit Our Website'),
+              ),
+            ],
+          ),
         ),
       ),
     );

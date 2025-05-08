@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/app_color.dart';
 
@@ -21,7 +22,7 @@ class CategoryCard extends StatelessWidget {
       },
       child: Card(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.r),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -30,10 +31,10 @@ class CategoryCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                 decoration: BoxDecoration(
                   color: AppColor.secondaryColor,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Text(
                   '${category.numberOfQuestions ?? 0} Qs',
