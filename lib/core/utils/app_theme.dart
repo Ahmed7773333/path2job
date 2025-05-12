@@ -10,15 +10,13 @@ class AppTheme {
         primary: AppColor.primaryColor,
         secondary: AppColor.secondaryColor,
         surface: AppColor.backgroundColor,
-        background: AppColor.backgroundColor,
         error: AppColor.errorColor,
         onPrimary: AppColor.textColor,
         onSecondary: AppColor.textColor,
         onSurface: AppColor.primaryColor,
-        onBackground: AppColor.primaryColor,
         onError: AppColor.textColor,
       ),
-      scaffoldBackgroundColor: AppColor.backgroundColor,
+      scaffoldBackgroundColor: AppColor.lavender,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColor.primaryColor,
         foregroundColor: AppColor.textColor,
@@ -88,7 +86,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Colors.white.withOpacity(0.9),
+        fillColor: Colors.white.withOpacity(0.8),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide.none,

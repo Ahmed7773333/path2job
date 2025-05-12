@@ -1,11 +1,10 @@
-// features/interview/presentation/pages/interview_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/features/Interview/presentation/widgets/add_category.dart';
-import 'package:path2job/features/Interview/presentation/widgets/category_list.dart';
+import '../../../../core/utils/assets.dart';
+import '../widgets/category_list.dart';
 
 
 class InterviewPage extends StatefulWidget {
@@ -22,6 +21,9 @@ class _InterviewPageState extends State<InterviewPage> {
     // Trigger sync when page initializes
     context.read<InterviewCubit>().syncCategories();
   }
+
+  TextEditingController text = TextEditingController();
+  List<Widget> chats = [];
 
   @override
   Widget build(BuildContext context) {
@@ -76,3 +78,5 @@ class _InterviewPageState extends State<InterviewPage> {
     );
   }
 }
+
+
