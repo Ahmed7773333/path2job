@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
 
@@ -25,7 +26,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
   final TextEditingController _totalVideosController = TextEditingController();
   final TextEditingController _completedVideosController =
       TextEditingController();
-  late final Course course;
+  Course course = Course();
   @override
   void initState() {
     super.initState();
@@ -71,13 +72,13 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             icon: const Icon(Icons.delete),
             onPressed: _showDeleteConfirmation,
           ),
-          IconButton(
-              onPressed: () {
-                context
-                    .read<PlanCubit>()
-                    .updateCourse(course.copyWith(done: !(course.done ?? false)));
-              },
-              icon:  Icon((course.done ?? false)? Icons.check_box_outline_blank:Icons.check_box)),
+          // IconButton(
+          //     onPressed: () {
+          //       context
+          //           .read<PlanCubit>()
+          //           .updateCourse(course.copyWith(done: !(course.done ?? false)));
+          //     },
+          //     icon:  Icon((course.done ?? false)? Icons.check_box_outline_blank:Icons.check_box)),
         ],
       ),
       body: SingleChildScrollView(
@@ -220,7 +221,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         LinearProgressIndicator(
           value: percentage / 100,
           minHeight: 8,
-          backgroundColor: Colors.grey[200],
+          backgroundColor: AppColor.secondaryColor,
           valueColor: AlwaysStoppedAnimation<Color>(
             Theme.of(context).primaryColor,
           ),

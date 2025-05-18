@@ -103,7 +103,7 @@ class PlanContent extends StatelessWidget {
                       child: CircularProgressIndicator(
                         value: totalProgress / 100,
                         strokeWidth: 12.w,
-                        backgroundColor: Colors.grey[200],
+                        backgroundColor: AppColor.secondaryColor,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           Theme.of(context).primaryColor,
                         ),

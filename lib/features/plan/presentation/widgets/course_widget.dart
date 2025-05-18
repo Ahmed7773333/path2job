@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 
 import '../../../../hive/course.dart';
 
@@ -71,7 +72,7 @@ if (course.done == true) {
       child: LinearProgressIndicator(
         value: completionPercentage / 100,
         minHeight: 8,
-        backgroundColor: Colors.grey[200],
+        backgroundColor: AppColor.secondaryColor,
         valueColor: AlwaysStoppedAnimation<Color>(
           completionPercentage > 0
               ? Theme.of(context).primaryColor

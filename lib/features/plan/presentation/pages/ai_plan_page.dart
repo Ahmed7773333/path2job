@@ -115,6 +115,7 @@ class _AiPlanPageState extends State<AiPlanPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             cubit.savePlan();
+                            Navigator.pop(context);
                           },
                           child: const Text('Accept Plan'),
                         ),
