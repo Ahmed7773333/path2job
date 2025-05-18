@@ -59,13 +59,13 @@ class TermsPage extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18.sp,
-              color: Colors.blueGrey,
+              color: Colors.black,
             ),
           ),
           SizedBox(height: 8.h),
           Text(
             content,
-            style: TextStyle(height: 1.5.h),
+            style: TextStyle(height: 1.5.h,fontWeight: FontWeight.w400),
           ),
         ],
       ),

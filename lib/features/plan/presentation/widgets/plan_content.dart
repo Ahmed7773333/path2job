@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/routes/routes.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/features/plan/presentation/widgets/course_widget.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
@@ -51,7 +52,7 @@ class PlanContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'You will be ${UserHiveHelper.getUser()?.job ?? 'No job found'}'),
+          'You will be ${UserHiveHelper.getUser()?.job ?? 'No job found'}',style: TextStyle(fontSize: 18.sp),),
         actions: [
           IconButton(
             icon: const Icon(Icons.sync),
@@ -88,6 +89,7 @@ class PlanContent extends StatelessWidget {
                 Text(
                   'Overall Progress',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: AppColor.textColor,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -111,15 +113,19 @@ class PlanContent extends StatelessWidget {
                       '${totalProgress.toStringAsFixed(1)}%',
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            color: AppColor.textColor,
                                 fontWeight: FontWeight.bold,
                               ),
                     ),
                   ],
                 ),
-                SizedBox(height: 8.h),
+                SizedBox(height: 18.h),
                 Text(
                   '${courses.length} courses in your plan',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColor.textColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),

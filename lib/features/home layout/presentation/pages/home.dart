@@ -162,10 +162,12 @@ class _HomePageState extends State<HomePage> {
   Widget _buildProgressCard() {
     return Card(
       margin: EdgeInsets.all(16.r),
-      elevation: 1,
+      elevation: 10,
       color: Colors.white70,
-      shadowColor: Colors.transparent,
+      surfaceTintColor: AppColor.secondaryColor,
+      shadowColor: Colors.white70,
       shape: RoundedRectangleBorder(
+        side: BorderSide(color: AppColor.primaryColor,width: 1.w),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
@@ -180,13 +182,11 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
                     )),
                 Text("65%",
                     style: TextStyle(
                       fontSize: 16.sp ,
                       fontWeight: FontWeight.bold,
-                      color: AppColor.secondaryColor,
                     )),
               ],
             ),
@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
               value: 0.65,
               backgroundColor: Colors.grey[200],
               valueColor:
-                  AlwaysStoppedAnimation<Color>(AppColor.secondaryColor),
+                  AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
               minHeight: 8.h,
               borderRadius: BorderRadius.circular(4.r),
             ),
@@ -219,20 +219,20 @@ class _HomePageState extends State<HomePage> {
   Widget _buildProgressChip(String label, bool completed) {
     return Chip(
       label: Text(label),
-      backgroundColor: completed ? Colors.green[50] : Colors.grey[100],
+      backgroundColor: completed ? AppColor.secondaryColor : Colors.grey[300],
       labelStyle: TextStyle(
-        color: completed ? Colors.green[800] : Colors.grey[600],
+        color: completed ? AppColor.primaryColor : Colors.grey[700],
         fontSize: 12.sp,
       ),
       avatar: Icon(
         completed ? Icons.check : Icons.access_time,
         size: 16.sp,
-        color: completed ? Colors.green[800] : Colors.grey[600],
+        color: completed ? AppColor.primaryColor : Colors.grey[700],
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
         side: BorderSide(
-          color: completed ? Colors.green[100]! : Colors.grey[200]!,
+          color: completed ? AppColor.primaryColor! : Colors.grey[200]!,
         ),
       ),
     );

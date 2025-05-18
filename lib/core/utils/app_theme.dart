@@ -16,7 +16,7 @@ class AppTheme {
         onSurface: AppColor.primaryColor,
         onError: AppColor.textColor,
       ),
-      scaffoldBackgroundColor: AppColor.lavender,
+      scaffoldBackgroundColor: AppColor.backgroundColor,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColor.primaryColor,
         foregroundColor: AppColor.textColor,
@@ -89,7 +89,7 @@ class AppTheme {
         fillColor: Colors.white.withOpacity(0.8),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppColor.primaryColor),
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 16.w,
@@ -114,13 +114,13 @@ class AppTheme {
         ),
       ),
       dividerTheme: DividerThemeData(
-        color: AppColor.primaryColor.withOpacity(0.2),
+        color: AppColor.primaryColor,
         thickness: 1.h,
         space: 1.w,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: AppColor.secondaryColor,
-        foregroundColor: AppColor.textColor,
+        backgroundColor: AppColor.primaryColor,
+        foregroundColor: AppColor.secondaryColor,
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: AppColor.secondaryColor,

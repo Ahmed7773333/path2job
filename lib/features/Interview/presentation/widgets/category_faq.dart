@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/core/utils/assets.dart';
 import 'add_question.dart';
@@ -59,7 +60,6 @@ class _CategoryFaqState extends State<CategoryFaq> {
                   icon: Icons.add_circle_outline,
                   label: 'Custom',
                   onPressed: () => _showAddQuestionSheet(context),
-                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 _buildActionButton(
                   context,
@@ -68,7 +68,6 @@ class _CategoryFaqState extends State<CategoryFaq> {
                   onPressed: () => context
                       .read<InterviewCubit>()
                       .generateQuestions(widget.jobName),
-                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ],
             ),
@@ -119,7 +118,6 @@ class _CategoryFaqState extends State<CategoryFaq> {
     required IconData icon,
     required String label,
     required VoidCallback onPressed,
-    required Color color,
   }) {
     return SizedBox(
       width: 120.w,
@@ -129,7 +127,7 @@ class _CategoryFaqState extends State<CategoryFaq> {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
-          backgroundColor: color,
+          backgroundColor: AppColor.primaryColor,
           padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),

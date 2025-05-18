@@ -65,7 +65,7 @@ class _CustomPlanPageState extends State<CustomPlanPage> {
               ? state.courses
               : cubit.customCourses;
           return Padding(
-            padding: EdgeInsets.all(16.0.r),
+            padding: EdgeInsets.symmetric(vertical: 18.h,horizontal: 16.w),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -160,9 +160,10 @@ class _CustomPlanPageState extends State<CustomPlanPage> {
                   ],
                 ),
                 Positioned(
-                  bottom: 45.h,
+                  bottom: 75.h,
                   child: FloatingActionButton(
                     elevation: 0,
+                    isExtended: false,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
                     onPressed: () => _showAddCourseSheet(context),
                     child: const Icon(Icons.add),

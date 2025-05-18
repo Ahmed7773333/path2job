@@ -64,7 +64,7 @@ class AboutPage extends StatelessWidget {
         style: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
-          color: Colors.blueGrey,
+          color: Colors.black,
         ),
       ),
     );
@@ -128,7 +128,7 @@ class AboutPage extends StatelessWidget {
               Text(
                 'support@path2job.com',
                 style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.grey,
                   fontWeight: FontWeight.bold,
                 ),
               ),

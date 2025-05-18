@@ -21,6 +21,11 @@ class CategoryCard extends StatelessWidget {
         );
       },
       child: Card(
+        elevation: 2.h,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: AppColor.primaryColor,width: 1.w),
+          borderRadius: BorderRadius.circular(16.r),
+        ),
         child: Padding(
           padding: EdgeInsets.all(16.r),
           child: Row(
@@ -33,7 +38,7 @@ class CategoryCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                 decoration: BoxDecoration(
-                  color: AppColor.secondaryColor,
+                  color: AppColor.primaryColor,
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Text(

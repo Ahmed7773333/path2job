@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path2job/core/routes/routes.dart';
-import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:path2job/hive_helper/category_hive_helper.dart';
@@ -166,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: EdgeInsets.symmetric(vertical: 8.0.w),
       child: Row(
         children: [
-          Icon(icon, size: 26.sp, color: AppColor.darkPurple,),
+          Icon(icon, size: 26.sp,),
           SizedBox(width: 16.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,8 +174,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 label,
                 style: TextStyle(
                     fontSize: 14.sp,
-                    color: AppColor.darkPurple,
-                    fontWeight: FontWeight.w700
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black
                 ),
               ),
               SizedBox(height: 4.h),
@@ -185,7 +184,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
-                    color: AppColor.orchid
                 ),
               ),
             ],
@@ -200,9 +198,9 @@ class _ProfilePageState extends State<ProfilePage> {
       String title,
       VoidCallback onTap,) {
     return ListTile(
-      leading: Icon(icon, color: AppColor.darkPurple,),
-      title: Text(title, style: TextStyle(color: AppColor.darkPurple),),
-      trailing: const Icon(Icons.chevron_right, color: AppColor.darkPurple,),
+      leading: Icon(icon,),
+      title: Text(title,),
+      trailing: const Icon(Icons.chevron_right,),
       onTap: onTap,
     );
   }

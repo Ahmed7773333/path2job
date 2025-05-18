@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/course_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/education_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/experience_page.dart';
@@ -38,36 +40,98 @@ class _CVFormState extends State<CVForm> {
     'languages': {},
   };
 
+  int selectedIndex = 0;
+
   // Temporary variables for adding items
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> tabs = [
+      PersonalInfoPage(
+        formData: _formData,
+        formKey: _formKey,
+      ),
+      EducationPagee(formData: _formData),
+      ExperiencePage(formData: _formData),
+      SkillsPage(formData: _formData),
+      ProjectPage(formData: _formData),
+      CoursePage(formData: _formData),
+      LanguagePage(formData: _formData),
+    ];
     return Scaffold(
       appBar: AppBar(title: Text('Create Your CV')),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        onPageChanged: (index) => setState(() => _currentPage = index),
-        children: [
-          PersonalInfoPage(
-            formData: _formData,
-            formKey: _formKey,
-          ),
-          EducationPagee(formData: _formData),
-          ExperiencePage(formData: _formData),
-          SkillsPage(formData: _formData),
-          ProjectPage(formData: _formData),
-          CoursePage(formData: _formData),
-          LanguagePage(formData: _formData),
-          ReviewPage(_formData),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            DefaultTabController(
+              length: tabs.length,
+              initialIndex: 0,
+              child: TabBar(
+                  onTap: (index) {
+                    selectedIndex = index;
+                    setState(() {});
+                  },
+                  isScrollable: true,
+                  indicatorColor: AppColor.primaryColor,
+                  indicatorWeight: 5.w,
+                  unselectedLabelColor: Colors.black,
+                  dividerHeight: 0.h,
+                  tabAlignment: TabAlignment.center,
+                  indicator: UnderlineTabIndicator(
+                      borderSide:
+                          BorderSide(color: AppColor.primaryColor, width: 2.w)),
+                  tabs: [
+                    Tab(
+                      text: "Personal Profile",
+                    ),
+                    Tab(
+                      child: Text("Education Page"),
+                    ),
+                    Tab(
+                      child: Text("Experience Page"),
+                    ),
+                    Tab(
+                      child: Text("Skills Page"),
+                    ),
+                    Tab(
+                      child: Text("Project Page"),
+                    ),
+                    Tab(
+                      child: Text("Course Page"),
+                    ),
+                    Tab(
+                      child: Text("Language Page"),
+                    ),
+                  ]),
+            ),
+            tabs[selectedIndex],
+          ],
+        ),
       ),
-      bottomNavigationBar: NavigationControls(
-        currentPage: _currentPage,
-        pageController: _pageController,
-        formKey: _formKey,
-        onGenerateCV: _generateCV,
-      ),
+      // body: PageView(
+      //   controller: _pageController,
+      //   physics: NeverScrollableScrollPhysics(),
+      //   onPageChanged: (index) => setState(() => _currentPage = index),
+      //   children: [
+      //     PersonalInfoPage(
+      //       formData: _formData,
+      //       formKey: _formKey,
+      //     ),
+      //     EducationPagee(formData: _formData),
+      //     ExperiencePage(formData: _formData),
+      //     SkillsPage(formData: _formData),
+      //     ProjectPage(formData: _formData),
+      //     CoursePage(formData: _formData),
+      //     LanguagePage(formData: _formData),
+      //     ReviewPage(_formData),
+      //   ],
+      // ),
+      // bottomNavigationBar: NavigationControls(
+      //   currentPage: _currentPage,
+      //   pageController: _pageController,
+      //   formKey: _formKey,
+      //   onGenerateCV: _generateCV,
+      // ),
     );
   }
 
