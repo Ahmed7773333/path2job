@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 12.h),
             LinearProgressIndicator(
               value: 0.65,
-              backgroundColor: Colors.grey[200],
+              backgroundColor: AppColor.secondaryColor,
               valueColor:
                   AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
               minHeight: 8.h,
