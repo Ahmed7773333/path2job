@@ -1,7 +1,6 @@
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/utils/app_color.dart';
 
 class ChatGptBubble extends StatelessWidget {
   const ChatGptBubble({super.key});
