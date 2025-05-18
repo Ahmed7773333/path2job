@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/features/cv%20generator/presentation/widgets/review_page.dart';
+import '../../../../core/utils/app_color.dart';
 
 class LanguagePage extends StatefulWidget {
-  const LanguagePage({required this.formData, super.key});
+  LanguagePage({required this.formData,required this.formKey, super.key});
 
   final Map<String, dynamic> formData;
+  var formKey = GlobalKey<FormState>();
 
   @override
   State<LanguagePage> createState() => _LanguagePageState();
@@ -61,6 +64,19 @@ class _LanguagePageState extends State<LanguagePage> {
           ),
           SizedBox(height: 30.h),
           _buildLanguagesList(),
+          SizedBox(height: 100.h),
+          ElevatedButton(
+            style: ButtonStyle(
+              fixedSize: WidgetStatePropertyAll(Size(250.w, 50.h)),
+              backgroundColor: WidgetStatePropertyAll(Color(0xff46a545))
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ReviewPage(widget.formData)));
+            },
+            child: Text('Review CV'),
+          ),
         ],
       ),
     );
@@ -77,12 +93,18 @@ class _LanguagePageState extends State<LanguagePage> {
                 elevation: 0,
                 margin: EdgeInsets.all(8.r),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.r)),
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
                 child: ListTile(
-                  title: Text(entry.key),
-                  subtitle: Text(entry.value),
+                  title: Text('${entry.key}   •   ${entry.value}'),
+                  // subtitle: Text(entry.value),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 26.sp,
+                    ),
                     onPressed: () => _removeLanguage(entry.key),
                   ),
                 ),

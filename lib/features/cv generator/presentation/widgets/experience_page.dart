@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/utils/app_color.dart';
+
 class ExperiencePage extends StatefulWidget {
   final Map<String, dynamic> formData;
 
@@ -113,12 +115,16 @@ class _ExperiencePageState extends State<ExperiencePage> {
                 elevation: 0,
                 margin: EdgeInsets.all(8.r),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.r)),
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
                 child: ListTile(
-                  title: Text(exp['company']),
-                  subtitle: Text('${exp['position']} • ${exp['duration']}'),
+                  title: Text('''${exp['company']}   
+• ${exp['position']}'''),
+                  subtitle: Text('''• ${exp['duration']}   • ${exp['location']}
+• ${exp['description']}'''),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: Icon(Icons.delete,color: Colors.red,size: 26.sp,),
                     onPressed: () => _removeExperience(exp),
                   ),
                 ),

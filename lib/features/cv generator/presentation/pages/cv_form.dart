@@ -5,10 +5,8 @@ import 'package:path2job/features/cv%20generator/presentation/widgets/course_pag
 import 'package:path2job/features/cv%20generator/presentation/widgets/education_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/experience_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/language_page.dart';
-import 'package:path2job/features/cv%20generator/presentation/widgets/navigation_control.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/personal_info_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/project_page.dart';
-import 'package:path2job/features/cv%20generator/presentation/widgets/review_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/skills_page.dart';
 import '../../data/models/cv_model.dart';
 import 'cv_preview.dart';
@@ -56,7 +54,7 @@ class _CVFormState extends State<CVForm> {
       SkillsPage(formData: _formData),
       ProjectPage(formData: _formData),
       CoursePage(formData: _formData),
-      LanguagePage(formData: _formData),
+      LanguagePage(formData: _formData,formKey: _formKey,),
     ];
     return Scaffold(
       appBar: AppBar(title: Text('Create Your CV')),

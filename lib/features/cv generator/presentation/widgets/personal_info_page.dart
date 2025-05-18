@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/network/gemini_helper.dart';
+import '../../../../core/utils/app_color.dart';
 
 class PersonalInfoPage extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -207,12 +208,15 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
         (index) => Card(
           elevation: 0,
           margin: EdgeInsets.all(8.r),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: AppColor.primaryColor,width: 1.w),
+            borderRadius: BorderRadius.circular(16.r),
+          ),
           child: ListTile(
             title: Text(widget.formData['links'][index]['platform']),
             subtitle: Text(widget.formData['links'][index]['url']),
             trailing: IconButton(
-              icon: const Icon(Icons.delete),
+              icon: Icon(Icons.delete,color: Colors.red,size: 26.sp,),
               onPressed: () => _removeSocialLink(index),
             ),
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/utils/app_color.dart';
+
 class EducationPagee extends StatefulWidget {
   final Map<String, dynamic> formData;
 
@@ -74,11 +76,12 @@ class _EducationPageeState extends State<EducationPagee> {
                   height: 16.h,
                 ),
                 TextFormField(
+                  maxLines: 4,
                   decoration:
                       InputDecoration(labelText: 'Description (e.g., GPA)'),
                   onChanged: (value) => _newDescription = value,
                 ),
-                SizedBox(height: 40.h),
+                SizedBox(height: 30.h),
                 ElevatedButton(
                   onPressed: _addEducation,
                   child: Text('Add Education'),
@@ -103,12 +106,16 @@ class _EducationPageeState extends State<EducationPagee> {
                 elevation: 0,
                 margin: EdgeInsets.all(8.r),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.r)),
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
                 child: ListTile(
-                  title: Text(edu['institution']),
-                  subtitle: Text('${edu['degree']} • ${edu['duration']}'),
+                  title: Text('''${edu['institution']}
+• ${edu['degree']}'''),
+                  subtitle: Text('''• ${edu['duration']}
+• ${edu['description']}'''),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: Icon(Icons.delete,color: Colors.red,size: 26.sp,),
                     onPressed: () => _removeEducation(edu),
                   ),
                 ),

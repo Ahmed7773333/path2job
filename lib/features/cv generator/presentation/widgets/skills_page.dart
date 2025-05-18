@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import '../../../../core/network/gemini_helper.dart';
 
 class SkillsPage extends StatefulWidget {
@@ -123,10 +124,15 @@ class _SkillsPageState extends State<SkillsPage> {
       spacing: 8.h,
       children: widget.formData['skills']
           .map<Widget>((skill) => Chip(
-            label: Text(skill),
-            deleteIcon: Icon(Icons.close, size: 16.sp),
-            onDeleted: () => _removeSkill(skill),
-          ))
+                backgroundColor: AppColor.secondaryColor,
+                label: Text(skill),
+                deleteIcon: Icon(
+                  Icons.close,
+                  size: 16.sp,
+                  color: Colors.red,
+                ),
+                onDeleted: () => _removeSkill(skill),
+              ))
           .toList(),
     );
   }

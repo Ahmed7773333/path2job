@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/utils/app_color.dart';
+
 class ProjectPage extends StatefulWidget {
   const ProjectPage({required this.formData, super.key});
 
@@ -74,12 +76,18 @@ class _ProjectPageState extends State<ProjectPage> {
                 elevation: 0,
                 margin: EdgeInsets.all(8.r),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.r)),
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
                 child: ListTile(
                   title: Text(project['name']),
-                  subtitle: Text(project['description']),
+                  subtitle: Text('• ${project['description']}'),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 26.sp,
+                    ),
                     onPressed: () => _removeProject(project),
                   ),
                 ),

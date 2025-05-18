@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/utils/app_color.dart';
+
 class CoursePage extends StatefulWidget {
   const CoursePage({required this.formData, super.key});
+
   final Map<String, dynamic> formData;
+
   @override
   State<CoursePage> createState() => _CoursePageState();
 }
@@ -12,6 +16,7 @@ class _CoursePageState extends State<CoursePage> {
   final _courseFormKey = GlobalKey<FormState>();
   String _newCourseName = '';
   String _newCoursePlatform = '';
+
   void _addCourse() {
     if (_newCourseName.isNotEmpty && _newCoursePlatform.isNotEmpty) {
       setState(() {
@@ -43,7 +48,9 @@ class _CoursePageState extends State<CoursePage> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Course Name',),
+                  decoration: InputDecoration(
+                    labelText: 'Course Name',
+                  ),
                   onChanged: (value) => _newCourseName = value,
                   textInputAction: TextInputAction.next,
                 ),
@@ -76,18 +83,25 @@ class _CoursePageState extends State<CoursePage> {
     return Column(
       children: widget.formData['courses']
           .map<Widget>((course) => Card(
-            elevation: 0,
-            margin: EdgeInsets.all(8.r),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
-            child: ListTile(
+                elevation: 0,
+                margin: EdgeInsets.all(8.r),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: ListTile(
                   title: Text(course['name']),
                   subtitle: Text(course['platform']),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 26.sp,
+                    ),
                     onPressed: () => _removeCourse(course),
                   ),
                 ),
-          ))
+              ))
           .toList(),
     );
   }

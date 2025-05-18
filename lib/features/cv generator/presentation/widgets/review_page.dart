@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/flutter_resume_template.dart';
 import '../../data/models/cv_model.dart';
 
