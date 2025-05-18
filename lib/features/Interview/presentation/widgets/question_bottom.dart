@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path2job/core/utils/app_color.dart';
-
 import '../cubit/interview_cubit.dart';
 
 class GenerateQuestionsButton extends StatelessWidget {

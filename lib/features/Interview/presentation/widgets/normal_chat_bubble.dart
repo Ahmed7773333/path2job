@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/utils/app_color.dart';
 
 class NormalChatBubble extends StatelessWidget {
-  String text = "";
+  final text;
   NormalChatBubble({super.key,required this.text});
 
   @override

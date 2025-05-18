@@ -8,8 +8,6 @@ import 'package:path2job/features/cv%20generator/presentation/widgets/language_p
 import 'package:path2job/features/cv%20generator/presentation/widgets/personal_info_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/project_page.dart';
 import 'package:path2job/features/cv%20generator/presentation/widgets/skills_page.dart';
-import '../../data/models/cv_model.dart';
-import 'cv_preview.dart';
 
 class CVForm extends StatefulWidget {
   @override
@@ -18,8 +16,8 @@ class CVForm extends StatefulWidget {
 
 class _CVFormState extends State<CVForm> {
   final _formKey = GlobalKey<FormState>();
-  final _pageController = PageController();
-  int _currentPage = 0;
+  // final _pageController = PageController();
+  // int _currentPage = 0;
 
   // Form controllers
   final Map<String, dynamic> _formData = {
@@ -139,65 +137,65 @@ class _CVFormState extends State<CVForm> {
 
   // Remove methods for each section
 
-  void _generateCV() {
-    if (_formKey.currentState?.validate() ?? false) {
-      _formKey.currentState!.save();
-
-      // Convert form data to CVData model
-      final cvData = CVData(
-        name: _formData['name'],
-        summary: _formData['summary'],
-        profession: _formData['profession'],
-        email: _formData['email'],
-        phone: _formData['phone'],
-        address: _formData['address'],
-        socialLinks: _formData['links']
-            .map((link) => SocialLink(
-                  platform: link['platform'],
-                  url: link['url'],
-                ))
-            .toList(),
-        education: _formData['education']
-            .map((e) => Educations(
-                  institution: e['institution'],
-                  degree: e['degree'],
-                  duration: e['duration'],
-                  description: e['description'],
-                ))
-            .toList(),
-        skills: _formData['skills']
-            .map((s) => SkillCategory(
-                  skills: List<String>.from(s['skills']),
-                ))
-            .toList(),
-        projects: _formData['projects']
-            .map((p) => Project(
-                  name: p['name'],
-                  description: p['description'],
-                ))
-            .toList(),
-        experience: _formData['experience']
-            .map((e) => Experience(
-                  company: e['company'],
-                  position: e['position'],
-                  duration: e['duration'],
-                  location: e['location'],
-                  description: e['description'],
-                ))
-            .toList(),
-        courses: _formData['courses']
-            .map((c) => Course(
-                  name: c['name'],
-                  platform: c['platform'],
-                ))
-            .toList(),
-        languages: Map<String, String>.from(_formData['languages']),
-      );
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CVPreviewPage(cvData: cvData)),
-      );
-    }
-  }
+  // void _generateCV() {
+  //   if (_formKey.currentState?.validate() ?? false) {
+  //     _formKey.currentState!.save();
+  //
+  //     // Convert form data to CVData model
+  //     final cvData = CVData(
+  //       name: _formData['name'],
+  //       summary: _formData['summary'],
+  //       profession: _formData['profession'],
+  //       email: _formData['email'],
+  //       phone: _formData['phone'],
+  //       address: _formData['address'],
+  //       socialLinks: _formData['links']
+  //           .map((link) => SocialLink(
+  //                 platform: link['platform'],
+  //                 url: link['url'],
+  //               ))
+  //           .toList(),
+  //       education: _formData['education']
+  //           .map((e) => Educations(
+  //                 institution: e['institution'],
+  //                 degree: e['degree'],
+  //                 duration: e['duration'],
+  //                 description: e['description'],
+  //               ))
+  //           .toList(),
+  //       skills: _formData['skills']
+  //           .map((s) => SkillCategory(
+  //                 skills: List<String>.from(s['skills']),
+  //               ))
+  //           .toList(),
+  //       projects: _formData['projects']
+  //           .map((p) => Project(
+  //                 name: p['name'],
+  //                 description: p['description'],
+  //               ))
+  //           .toList(),
+  //       experience: _formData['experience']
+  //           .map((e) => Experience(
+  //                 company: e['company'],
+  //                 position: e['position'],
+  //                 duration: e['duration'],
+  //                 location: e['location'],
+  //                 description: e['description'],
+  //               ))
+  //           .toList(),
+  //       courses: _formData['courses']
+  //           .map((c) => Course(
+  //                 name: c['name'],
+  //                 platform: c['platform'],
+  //               ))
+  //           .toList(),
+  //       languages: Map<String, String>.from(_formData['languages']),
+  //     );
+  //
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => CVPreviewPage(cvData: cvData)),
+  //     );
+  //   }
+  // }
 }

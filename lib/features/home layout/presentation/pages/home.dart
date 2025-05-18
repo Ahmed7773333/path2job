@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r),
         side: BorderSide(
-          color: completed ? AppColor.primaryColor! : Colors.grey[200]!,
+          color: completed ? AppColor.primaryColor : Colors.grey[200]!,
         ),
       ),
     );

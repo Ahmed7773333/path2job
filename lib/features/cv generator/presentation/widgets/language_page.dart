@@ -7,7 +7,7 @@ class LanguagePage extends StatefulWidget {
   LanguagePage({required this.formData,required this.formKey, super.key});
 
   final Map<String, dynamic> formData;
-  var formKey = GlobalKey<FormState>();
+  final formKey;
 
   @override
   State<LanguagePage> createState() => _LanguagePageState();
