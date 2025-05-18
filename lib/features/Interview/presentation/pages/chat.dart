@@ -21,10 +21,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.mauve,
+      backgroundColor: AppColor.secondaryColor,
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColor.darkPurple,
         title: Text(
           "AI Chat",
           style: TextStyle(fontSize: 22.sp),
@@ -40,7 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
               NormalChatBubble(text: "Hi, ChatGPT",),
               ChatGptBubble(),
               SizedBox(
-                height: 440.h,
+                height: 520.h,
                 child: ListView.builder(
                   itemCount: chats.length,
                   itemBuilder: (context, index) {
@@ -51,55 +49,52 @@ class _ChatScreenState extends State<ChatScreen> {
               SizedBox(
                 height: 10.h,
               ),
-              TextFormField(
-                controller: text,
-                textInputAction: TextInputAction.newline,
-                cursorColor: AppColor.orchid,
-                minLines: 1,
-                maxLines: 10,
-                expands: false,
-                selectionControls: MaterialTextSelectionControls(),
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  hoverColor: AppColor.orchid,
-                  prefixIcon: Icon(
-                    Icons.add_rounded,
-                    color: AppColor.orchid,
-                    size: 25.sp,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        if (text.text.isNotEmpty) {
-                          chats.add(
-                            NormalChatBubble(text: text.text),
-                          );
-                          text = TextEditingController();
-                        }
-                      });
-                    },
-                    color: AppColor.orchid,
-                    icon: Icon(
-                      Icons.send,
-                      size: 22.sp,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                child: TextFormField(
+                  controller: text,
+                  textInputAction: TextInputAction.newline,
+                  minLines: 1,
+                  maxLines: 20,
+                  expands: false,
+                  selectionControls: MaterialTextSelectionControls(),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.add_rounded,
+                      size: 25.sp,
                     ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18.r),
-                    borderSide: BorderSide(color: AppColor.orchid, width: 2),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18.r),
-                    borderSide: BorderSide(color: Colors.red),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18.r),
-                    borderSide: BorderSide(color: AppColor.orchid, width: 2),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(18.r),
-                    borderSide: BorderSide(color: AppColor.orchid, width: 2),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          if (text.text.isNotEmpty) {
+                            chats.add(
+                              NormalChatBubble(text: text.text),
+                            );
+                            text = TextEditingController();
+                          }
+                        });
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        size: 22.sp,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18.r),
+                      borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18.r),
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18.r),
+                      borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(18.r),
+                      borderSide: BorderSide(color: AppColor.primaryColor, width: 2),
+                    ),
                   ),
                 ),
               )

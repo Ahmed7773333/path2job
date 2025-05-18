@@ -14,9 +14,9 @@ class NormalChatBubble extends StatelessWidget {
       textStyle: TextStyle(
           fontSize: 14.sp,
           fontWeight: FontWeight.w400,
-          color: AppColor.darkPurple
+          color: AppColor.secondaryColor
       ),
-      color: AppColor.lightMauve,
+      color: AppColor.primaryColor,
       padding: EdgeInsets.all(12.r),
     );
   }

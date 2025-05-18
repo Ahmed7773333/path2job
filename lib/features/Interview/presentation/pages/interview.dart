@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
+import 'package:path2job/features/Interview/presentation/pages/chat.dart';
 import 'package:path2job/features/Interview/presentation/widgets/add_category.dart';
 import '../../../../core/utils/assets.dart';
 import '../widgets/category_list.dart';
@@ -29,12 +30,28 @@ class _InterviewPageState extends State<InterviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Interview Preparation")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle floating action button press
-          _showAddCategorySheet(context);
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: 30.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatScreen()));
+              },
+              child: Icon(Icons.chat,size: 26.sp,),
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                // Handle floating action button press
+                _showAddCategorySheet(context);
+              },
+              child: Icon(Icons.add,size: 26.sp,),
+            ),
+          ],
+        ),
       ),
       body: BlocBuilder<InterviewCubit, InterviewState>(
         builder: (context, state) {
