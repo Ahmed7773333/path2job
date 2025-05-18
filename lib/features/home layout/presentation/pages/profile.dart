@@ -18,7 +18,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late bool isConnected;
+  bool isConnected = false;
 
   @override
   void initState() {
