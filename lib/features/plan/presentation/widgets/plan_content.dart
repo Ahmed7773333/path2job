@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/routes/routes.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/features/plan/presentation/widgets/course_widget.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
@@ -35,8 +37,8 @@ class PlanContent extends StatelessWidget {
         ),
         child: const AddCourseSheet(),
       ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
     );
   }
@@ -50,7 +52,7 @@ class PlanContent extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'You will be ${UserHiveHelper.getUser()?.job ?? 'No job found'}'),
+          'You will be ${UserHiveHelper.getUser()?.job ?? 'No job found'}',style: TextStyle(fontSize: 18.sp),),
         actions: [
           IconButton(
             icon: const Icon(Icons.sync),
@@ -74,12 +76,12 @@ class PlanContent extends StatelessWidget {
         children: [
           // Progress Header
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20.r),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20.r),
+                bottomRight: Radius.circular(20.r),
               ),
             ),
             child: Column(
@@ -87,20 +89,21 @@ class PlanContent extends StatelessWidget {
                 Text(
                   'Overall Progress',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: AppColor.textColor,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 Stack(
                   alignment: Alignment.center,
                   children: [
                     SizedBox(
-                      height: 120,
-                      width: 120,
+                      height: 120.h,
+                      width: 120.w,
                       child: CircularProgressIndicator(
                         value: totalProgress / 100,
-                        strokeWidth: 12,
-                        backgroundColor: Colors.grey[200],
+                        strokeWidth: 12.w,
+                        backgroundColor: AppColor.secondaryColor,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           Theme.of(context).primaryColor,
                         ),
@@ -110,15 +113,19 @@ class PlanContent extends StatelessWidget {
                       '${totalProgress.toStringAsFixed(1)}%',
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            color: AppColor.textColor,
                                 fontWeight: FontWeight.bold,
                               ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 18.h),
                 Text(
                   '${courses.length} courses in your plan',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: AppColor.textColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -131,7 +138,7 @@ class PlanContent extends StatelessWidget {
                     child: Text('No courses added yet'),
                   )
                 : ListView.builder(
-                    padding: const EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.only(top: 16.h),
                     itemCount: courses.length,
                     itemBuilder: (context, index) {
                       final course = courses[index];

@@ -1,10 +1,11 @@
-// features/interview/presentation/pages/interview_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path2job/core/utils/assets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
+import 'package:path2job/features/Interview/presentation/pages/chat.dart';
 import 'package:path2job/features/Interview/presentation/widgets/add_category.dart';
-import 'package:path2job/features/Interview/presentation/widgets/category_list.dart';
+import '../../../../core/utils/assets.dart';
+import '../widgets/category_list.dart';
 
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/componetns.dart';
@@ -24,16 +25,35 @@ class _InterviewPageState extends State<InterviewPage> {
     context.read<InterviewCubit>().syncCategories();
   }
 
+  TextEditingController text = TextEditingController();
+  List<Widget> chats = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Interview Preparation")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle floating action button press
-          _showAddCategorySheet(context);
-        },
-        child: const Icon(Icons.add),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: 30.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatScreen()));
+              },
+              child: Icon(Icons.chat,size: 26.sp,),
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                // Handle floating action button press
+                _showAddCategorySheet(context);
+              },
+              child: Icon(Icons.add,size: 26.sp,),
+            ),
+          ],
+        ),
       ),
       body: BlocBuilder<InterviewCubit, InterviewState>(
         builder: (context, state) {
@@ -69,9 +89,11 @@ class _InterviewPageState extends State<InterviewPage> {
         ),
         child: const AddCategorySheet(),
       ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
     );
   }
 }
+
+

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/utils/app_color.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({required this.formData, super.key});
+
   final Map<String, dynamic> formData;
+
   @override
   State<ProjectPage> createState() => _ProjectPageState();
 }
@@ -11,10 +16,11 @@ class _ProjectPageState extends State<ProjectPage> {
   final _projectFormKey = GlobalKey<FormState>();
   String _newProjectName = '';
   String _newProjectDescription = '';
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Column(
         children: [
           Form(
@@ -25,12 +31,13 @@ class _ProjectPageState extends State<ProjectPage> {
                   decoration: InputDecoration(labelText: 'Project Name'),
                   onChanged: (value) => _newProjectName = value,
                 ),
+                SizedBox(height: 16.h),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Description'),
                   maxLines: 3,
                   onChanged: (value) => _newProjectDescription = value,
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 32.h),
                 ElevatedButton(
                   onPressed: _addProject,
                   child: Text('Add Project'),
@@ -38,7 +45,7 @@ class _ProjectPageState extends State<ProjectPage> {
               ],
             ),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 32.h),
           _buildProjectsList(),
         ],
       ),
@@ -65,12 +72,24 @@ class _ProjectPageState extends State<ProjectPage> {
     }
     return Column(
       children: widget.formData['projects']
-          .map<Widget>((project) => ListTile(
-                title: Text(project['name']),
-                subtitle: Text(project['description']),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () => _removeProject(project),
+          .map<Widget>((project) => Card(
+                elevation: 0,
+                margin: EdgeInsets.all(8.r),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: ListTile(
+                  title: Text(project['name']),
+                  subtitle: Text('• ${project['description']}'),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 26.sp,
+                    ),
+                    onPressed: () => _removeProject(project),
+                  ),
                 ),
               ))
           .toList(),

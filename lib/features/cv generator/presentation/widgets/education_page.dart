@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/utils/app_color.dart';
 
 class EducationPagee extends StatefulWidget {
   final Map<String, dynamic> formData;
@@ -43,7 +46,7 @@ class _EducationPageeState extends State<EducationPagee> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Column(
         children: [
           Form(
@@ -54,21 +57,31 @@ class _EducationPageeState extends State<EducationPagee> {
                   decoration: InputDecoration(labelText: 'Institution'),
                   onChanged: (value) => _newInstitution = value,
                 ),
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Degree/Program'),
                   onChanged: (value) => _newDegree = value,
+                ),
+                SizedBox(
+                  height: 16.h,
                 ),
                 TextFormField(
                   decoration:
                       InputDecoration(labelText: 'Duration (e.g., 2018-2022)'),
                   onChanged: (value) => _newDuration = value,
                 ),
+                SizedBox(
+                  height: 16.h,
+                ),
                 TextFormField(
+                  maxLines: 4,
                   decoration:
                       InputDecoration(labelText: 'Description (e.g., GPA)'),
                   onChanged: (value) => _newDescription = value,
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 30.h),
                 ElevatedButton(
                   onPressed: _addEducation,
                   child: Text('Add Education'),
@@ -76,7 +89,7 @@ class _EducationPageeState extends State<EducationPagee> {
               ],
             ),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 24.h),
           _buildEducationList(),
         ],
       ),
@@ -89,12 +102,22 @@ class _EducationPageeState extends State<EducationPagee> {
     }
     return Column(
       children: widget.formData['education']
-          .map<Widget>((edu) => ListTile(
-                title: Text(edu['institution']),
-                subtitle: Text('${edu['degree']} • ${edu['duration']}'),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () => _removeEducation(edu),
+          .map<Widget>((edu) => Card(
+                elevation: 0,
+                margin: EdgeInsets.all(8.r),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: AppColor.primaryColor, width: 1.w),
+                  borderRadius: BorderRadius.circular(16.r),
+                ),
+                child: ListTile(
+                  title: Text('''${edu['institution']}
+• ${edu['degree']}'''),
+                  subtitle: Text('''• ${edu['duration']}
+• ${edu['description']}'''),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete,color: Colors.red,size: 26.sp,),
+                    onPressed: () => _removeEducation(edu),
+                  ),
                 ),
               ))
           .toList(),

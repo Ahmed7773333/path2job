@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/assets.dart';
 
@@ -9,7 +10,7 @@ class EmptyPlanPage extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -19,7 +20,7 @@ class EmptyPlanPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             _buildOptionButton(
               context,
               icon: Icons.auto_awesome,
@@ -29,7 +30,7 @@ class EmptyPlanPage extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.aiPage);
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             _buildOptionButton(
               context,
               icon: Icons.edit,
@@ -39,7 +40,7 @@ class EmptyPlanPage extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.customPage);
               },
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
           ],
         ),
       ),
@@ -56,10 +57,10 @@ class EmptyPlanPage extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: Theme.of(context).dividerColor,
             width: 1,
@@ -67,8 +68,8 @@ class EmptyPlanPage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, size: 32, color: Theme.of(context).primaryColor),
-            const SizedBox(width: 16),
+            Icon(icon, size: 32.sp, color: Theme.of(context).primaryColor),
+            SizedBox(width: 16.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,13 +103,13 @@ class EmptyPlanPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(Assets.emptyPlan, width: 200),
-            const SizedBox(height: 32),
+            Image.asset(Assets.emptyPlan, width: 200.w),
+            SizedBox(height: 32.h),
             Text(
               'No Career Plan Yet',
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               'Create a personalized plan to reach your goals',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -116,15 +117,15 @@ class EmptyPlanPage extends StatelessWidget {
                   ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
             ElevatedButton.icon(
               icon: const Icon(Icons.add, color: Colors.white),
               label: const Text('Create Plan'),
               onPressed: () => _showPlanOptions(context),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 24.w,
+                  vertical: 16.h,
                 ),
               ),
             ),

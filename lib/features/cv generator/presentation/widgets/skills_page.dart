@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import '../../../../core/network/gemini_helper.dart';
 
 class SkillsPage extends StatefulWidget {
@@ -64,7 +66,7 @@ class _SkillsPageState extends State<SkillsPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Column(
         children: [
           Form(
@@ -76,21 +78,30 @@ class _SkillsPageState extends State<SkillsPage> {
                       labelText: 'Skill (e.g., Dart, Flutter)'),
                   onChanged: (value) => _newSkill = value,
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: ElevatedButton(
+                        style: ButtonStyle(
+                            fixedSize:
+                                WidgetStatePropertyAll(Size(200.w, 70.h))),
                         onPressed: _addSkill,
                         child: const Text('Add Skill'),
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     Expanded(
                       child: ElevatedButton(
+                        style: ButtonStyle(
+                            fixedSize:
+                                WidgetStatePropertyAll(Size(200.w, 70.h))),
                         onPressed: _generateSkills,
-                        child: const Text('Generate Skills'),
+                        child: const Text(
+                          'Generate Skills',
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ],
@@ -98,7 +109,7 @@ class _SkillsPageState extends State<SkillsPage> {
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           _buildSkillsList(),
         ],
       ),
@@ -110,11 +121,16 @@ class _SkillsPageState extends State<SkillsPage> {
       return const Text('No skills added yet');
     }
     return Wrap(
-      spacing: 8,
+      spacing: 8.h,
       children: widget.formData['skills']
           .map<Widget>((skill) => Chip(
+                backgroundColor: AppColor.secondaryColor,
                 label: Text(skill),
-                deleteIcon: const Icon(Icons.close, size: 16),
+                deleteIcon: Icon(
+                  Icons.close,
+                  size: 16.sp,
+                  color: Colors.red,
+                ),
                 onDeleted: () => _removeSkill(skill),
               ))
           .toList(),

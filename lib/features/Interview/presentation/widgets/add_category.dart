@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/hive/category.dart';
 
@@ -23,7 +24,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Form(
         key: _formKey,
         child: Column(
@@ -37,7 +38,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             TextFormField(
               controller: _nameController,
               decoration: const InputDecoration(
@@ -51,7 +52,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 return null;
               },
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -65,11 +66,11 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16.h),
               ),
               child: const Text('Add Job'),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),

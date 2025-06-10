@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/hive/question_answer.dart';
 
 import 'question_card.dart';
@@ -17,7 +18,7 @@ class QuestionsList extends StatelessWidget {
           );
         },
         separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: 10);
+          return SizedBox(height: 10.h);
         },
       ),
     );

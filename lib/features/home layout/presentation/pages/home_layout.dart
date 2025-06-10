@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/utils/app_color.dart';
 
 import 'home.dart';
@@ -47,8 +48,8 @@ class _HomeLayoutState extends State<HomeLayout> {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              spreadRadius: 2,
+              blurRadius: 10.r,
+              spreadRadius: 2.r,
             ),
           ],
         ),

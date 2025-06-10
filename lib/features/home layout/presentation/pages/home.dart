@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/core/routes/routes.dart';
 import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
 import 'package:path2job/hive/recent_acitivty.dart';
-
-import '../../../../core/utils/componetns.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,18 +37,21 @@ class _HomePageState extends State<HomePage> {
 
             // Quick Actions
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
               child: Text("Quick Actions",
                   style: Theme.of(context).textTheme.titleMedium),
             ),
-            _buildQuickActions(),
+            Padding(
+              padding: EdgeInsets.all(8.0.r),
+              child: _buildQuickActions(),
+            ),
 
             // Progress Section
             _buildProgressCard(),
 
             // Recent Activity
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 8),
+              padding: EdgeInsets.fromLTRB(24.w, 24.h, 16.w, 16.h),
               child: Text("Recent Activity",
                   style: Theme.of(context).textTheme.titleMedium),
             ),
@@ -66,12 +68,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 56, 16, 24),
+      padding: EdgeInsets.fromLTRB(16.w, 56.h, 16.w, 24.h),
       decoration: BoxDecoration(
         color: AppColor.primaryColor,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20.r),
+          bottomRight: Radius.circular(20.r),
         ),
       ),
       child: Column(
@@ -91,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           Text("Ready to boost your career?",
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Colors.white.withOpacity(0.9),
@@ -103,17 +105,17 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildQuickActions() {
     return SizedBox(
-      height: 105,
+      height: 110.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.symmetric(horizontal: 8.h),
         itemCount: quickActions.length,
         itemBuilder: (context, index) {
           final action = quickActions[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8.h),
             child: InkWell(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               onTap: () {
                 // Handle action tap
                 switch (action.label) {
@@ -129,19 +131,20 @@ class _HomePageState extends State<HomePage> {
                 }
               }, // Handle action
               child: Container(
-                width: 100,
-                padding: const EdgeInsets.all(12),
+                width: 100.w,
+                padding: EdgeInsets.all(12.r),
                 decoration: BoxDecoration(
-                  color: action.color.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: action.color.withOpacity(0.3)),
+                  color: action.color.withOpacity(0.25),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(color: action.color.withOpacity(0.45)),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(action.icon, color: action.color, size: 28),
-                    const SizedBox(height: 8),
+                    Icon(action.icon, color: action.color, size: 28.sp),
+                    SizedBox(height: 8.h),
                     Text(action.label,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.grey[800],
                           fontWeight: FontWeight.w500,
@@ -158,13 +161,17 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildProgressCard() {
     return Card(
-      margin: const EdgeInsets.all(16),
-      elevation: 2,
+      margin: EdgeInsets.all(16.r),
+      elevation: 10,
+      color: Colors.white70,
+      surfaceTintColor: AppColor.secondaryColor,
+      shadowColor: Colors.white70,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: AppColor.primaryColor,width: 1.w),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -173,31 +180,29 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text("Career Plan Progress",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey[800],
                     )),
                 Text("65%",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp ,
                       fontWeight: FontWeight.bold,
-                      color: AppColor.secondaryColor,
                     )),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             LinearProgressIndicator(
               value: 0.65,
-              backgroundColor: Colors.grey[200],
+              backgroundColor: AppColor.secondaryColor,
               valueColor:
-                  AlwaysStoppedAnimation<Color>(AppColor.secondaryColor),
-              minHeight: 8,
-              borderRadius: BorderRadius.circular(4),
+                  AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
+              minHeight: 8.h,
+              borderRadius: BorderRadius.circular(4.r),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 16.h),
             Wrap(
-              spacing: 8,
-              runSpacing: 8,
+              spacing: 8.h,
+              runSpacing: 8.r,
               children: [
                 _buildProgressChip("Flutter Basics", true),
                 _buildProgressChip("Dart Advanced", true),
@@ -214,20 +219,20 @@ class _HomePageState extends State<HomePage> {
   Widget _buildProgressChip(String label, bool completed) {
     return Chip(
       label: Text(label),
-      backgroundColor: completed ? Colors.green[50] : Colors.grey[100],
+      backgroundColor: completed ? AppColor.secondaryColor : Colors.grey[300],
       labelStyle: TextStyle(
-        color: completed ? Colors.green[800] : Colors.grey[600],
-        fontSize: 12,
+        color: completed ? AppColor.primaryColor : Colors.grey[700],
+        fontSize: 12.sp,
       ),
       avatar: Icon(
         completed ? Icons.check : Icons.access_time,
-        size: 16,
-        color: completed ? Colors.green[800] : Colors.grey[600],
+        size: 16.sp,
+        color: completed ? AppColor.primaryColor : Colors.grey[700],
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
         side: BorderSide(
-          color: completed ? Colors.green[100]! : Colors.grey[200]!,
+          color: completed ? AppColor.primaryColor : Colors.grey[200]!,
         ),
       ),
     );
@@ -236,62 +241,52 @@ class _HomePageState extends State<HomePage> {
   Widget _buildActivityList() {
     return BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
       builder: (context, state) {
-        if (state is HomeLayoutError) {
-          Navigator.pop(context);
-          Components.showMessage(context,
-              content: state.message!,
-              icon: Icons.error,
-              color: AppColor.errorColor);
-        }
-        if (state is RecentAcitivtyLoading) {
-          Components.circularProgressLoad(context);
-        }
         if (state is RecentAcitivtyEmpty) {
-          Navigator.pop(context);
-
-          return Text(
-            'No recent activities found.',
+          return Center(
+            child: Text(
+              'No recent activities found.',
+            ),
           );
         }
         if (state is RecentAcitivtySuccess) {
-          Navigator.pop(context);
-
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount:
-                  context.read<HomeLayoutCubit>().recentActivities.length >= 3
-                      ? 3
-                      : context.read<HomeLayoutCubit>().recentActivities.length,
-              separatorBuilder: (context, index) =>
-                  Divider(height: 1, indent: 16),
-              itemBuilder: (context, index) {
-                final RecentAcitivty activity =
-                    context.read<HomeLayoutCubit>().recentActivities[index];
-                return ListTile(
-                  leading: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[50],
-                      shape: BoxShape.circle,
+          return Center(
+            child: Card(
+              margin: EdgeInsets.symmetric(horizontal: 16.w),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount:
+                    context.read<HomeLayoutCubit>().recentActivities.length >= 3
+                        ? 3
+                        : context.read<HomeLayoutCubit>().recentActivities.length,
+                separatorBuilder: (context, index) =>
+                    Divider(height: 1.h, indent: 16.w),
+                itemBuilder: (context, index) {
+                  final RecentAcitivty activity =
+                      context.read<HomeLayoutCubit>().recentActivities[index];
+                  return ListTile(
+                    leading: Container(
+                      width: 40.w,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        color: Colors.blue[50],
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(IconData(activity.icon!),
+                          color: AppColor.secondaryColor, size: 20.sp),
                     ),
-                    child: Icon(IconData(activity.icon!),
-                        color: AppColor.secondaryColor, size: 20),
-                  ),
-                  title: Text(activity.name ?? "",
-                      style: TextStyle(fontWeight: FontWeight.w500)),
-                  subtitle: Text(activity.time.toString(),
-                      style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-                  trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
-                  onTap: () {}, // Handle tap
-                );
-              },
+                    title: Text(activity.name ?? "",
+                        style: TextStyle(fontWeight: FontWeight.w500)),
+                    subtitle: Text(activity.time.toString(),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 12.sp)),
+                    trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
+                    onTap: () {}, // Handle tap
+                  );
+                },
+              ),
             ),
           );
         }

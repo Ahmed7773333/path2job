@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:uuid/uuid.dart';
 
@@ -27,7 +28,7 @@ class _AddQuestionSheetState extends State<AddQuestionSheet> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Form(
         key: _formKey,
         child: Column(
@@ -41,7 +42,7 @@ class _AddQuestionSheetState extends State<AddQuestionSheet> {
                   ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             TextFormField(
               controller: _questionController,
               decoration: const InputDecoration(
@@ -55,7 +56,7 @@ class _AddQuestionSheetState extends State<AddQuestionSheet> {
                 return null;
               },
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             TextFormField(
               controller: _answerController,
               maxLines: 5,
@@ -70,7 +71,7 @@ class _AddQuestionSheetState extends State<AddQuestionSheet> {
                 return null;
               },
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -87,11 +88,11 @@ class _AddQuestionSheetState extends State<AddQuestionSheet> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16.h),
               ),
               child: const Text('Add Question'),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),

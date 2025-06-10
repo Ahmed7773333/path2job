@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
 
@@ -24,7 +26,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
   final TextEditingController _totalVideosController = TextEditingController();
   final TextEditingController _completedVideosController =
       TextEditingController();
-  late final Course course;
+  Course course = Course();
   @override
   void initState() {
     super.initState();
@@ -70,17 +72,17 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             icon: const Icon(Icons.delete),
             onPressed: _showDeleteConfirmation,
           ),
-          IconButton(
-              onPressed: () {
-                context
-                    .read<PlanCubit>()
-                    .updateCourse(course.copyWith(done: !(course.done ?? false)));
-              },
-              icon:  Icon((course.done ?? false)? Icons.check_box_outline_blank:Icons.check_box)),
+          // IconButton(
+          //     onPressed: () {
+          //       context
+          //           .read<PlanCubit>()
+          //           .updateCourse(course.copyWith(done: !(course.done ?? false)));
+          //     },
+          //     icon:  Icon((course.done ?? false)? Icons.check_box_outline_blank:Icons.check_box)),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -94,7 +96,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
               ),
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
             // Expanded Description Field
             TextFormField(
@@ -108,7 +110,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
               minLines: 3,
               keyboardType: TextInputType.multiline,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
             // Course Link
             TextFormField(
@@ -125,14 +127,14 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
               ),
               keyboardType: TextInputType.url,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
             // Progress Section
-            const Text(
+            Text(
               'Progress Tracking',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Row(
               children: [
                 Expanded(
@@ -155,7 +157,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                     keyboardType: TextInputType.number,
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
                 Expanded(
                   child: TextFormField(
                     readOnly: course.done == true,
@@ -178,20 +180,20 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
             // Progress Indicator
             _buildProgressIndicator(),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         child: ElevatedButton(
           onPressed: _saveChanges,
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: EdgeInsets.symmetric(vertical: 16.h),
           ),
           child: const Text('Save Changes'),
         ),
@@ -213,13 +215,13 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
       children: [
         Text(
           'Completion: ${percentage.toStringAsFixed(1)}%',
-          style: const TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 14.sp),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8.h),
         LinearProgressIndicator(
           value: percentage / 100,
           minHeight: 8,
-          backgroundColor: Colors.grey[200],
+          backgroundColor: AppColor.secondaryColor,
           valueColor: AlwaysStoppedAnimation<Color>(
             Theme.of(context).primaryColor,
           ),

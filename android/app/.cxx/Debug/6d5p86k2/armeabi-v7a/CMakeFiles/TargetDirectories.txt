@@ -1,0 +1,2 @@
+C:/Users/hreda/StudioProjects/path2job2/android/app/.cxx/Debug/6d5p86k2/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/hreda/StudioProjects/path2job2/android/app/.cxx/Debug/6d5p86k2/armeabi-v7a/CMakeFiles/rebuild_cache.dir

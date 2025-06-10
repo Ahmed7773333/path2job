@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 
 import '../../../../hive/course.dart';
@@ -32,7 +33,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.r),
       child: Form(
         key: _formKey,
         child: Column(
@@ -46,7 +47,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
                   ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             TextFormField(
               controller: _nameController,
               decoration: const InputDecoration(
@@ -60,7 +61,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
                 return null;
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextFormField(
               controller: _descController,
               decoration: const InputDecoration(
@@ -69,7 +70,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
               ),
               maxLines: 3,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             TextFormField(
               controller: _linkController,
               decoration: const InputDecoration(
@@ -78,7 +79,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
               ),
               keyboardType: TextInputType.url,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             Row(
               children: [
                 Expanded(
@@ -100,7 +101,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
                     },
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.h),
                 Expanded(
                   child: TextFormField(
                     controller: _completedVideosController,
@@ -122,7 +123,7 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -143,11 +144,11 @@ class _AddCourseSheetState extends State<AddCourseSheet> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16.h),
               ),
               child: const Text('Add Course'),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),
