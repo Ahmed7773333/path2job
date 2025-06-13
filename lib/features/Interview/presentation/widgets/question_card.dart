@@ -28,7 +28,6 @@ class QuestionCard extends StatelessWidget {
             padding: EdgeInsets.all(16.r),
             child: Text(question.answer),
           ),
-          // إمكانية حفظ/حذف السؤال
           IconButton(
               onPressed: () {
                 context

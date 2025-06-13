@@ -9,6 +9,7 @@ class AuthModel {
   final String? job;
   final String? phone;
   final File? photo;
+  final bool? role;
 
   AuthModel({
     required this.email,
@@ -17,5 +18,6 @@ class AuthModel {
     this.job,
     this.phone,
     this.photo,
+    this.role,
   });
 }

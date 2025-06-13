@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../core/utils/assets.dart';
 
@@ -28,7 +29,7 @@ class SignInPage extends StatelessWidget {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.only(right: 20.w,left: 20.w,top: 30.h),
+              padding: EdgeInsets.only(right: 20.w, left: 20.w, top: 30.h),
               child: Column(
                 spacing: 24.h,
                 children: [
@@ -36,9 +37,8 @@ class SignInPage extends StatelessWidget {
                     '''Welcome!
 Lets Get Started!''',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 28.sp,
-                        fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 40.h),
                   // Image.asset(
@@ -70,16 +70,21 @@ Lets Get Started!''',
                     },
                     child: Text('Forgot Password?'),
                   ),
-                  BlocBuilder<AuthCubit, AuthState>(
+                  BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthSuccess) {
+                        if (UserHiveHelper.getUser()?.isHr ?? false)
+                          Navigator.pushReplacementNamed(
+                              context, Routes.homeHr);
+                        else
+                          Navigator.pushReplacementNamed(context, Routes.home);
+                      }
+                    },
                     builder: (context, state) {
                       if (state is AuthLoading) {
                         return CircularProgressIndicator();
                       }
-                      if (state is AuthSuccess) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.pushReplacementNamed(context, Routes.home);
-                        });
-                      }
+
                       return ElevatedButton(
                         onPressed: () {
                           context.read<AuthCubit>().signIn(

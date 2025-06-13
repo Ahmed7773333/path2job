@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:path2job/hive/recent_acitivty.dart';
+import 'package:path2job/hive_helper/recent_activity_helper.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/utils/flutter_resume_template.dart';
 import '../../data/models/cv_model.dart';
 
@@ -15,56 +18,61 @@ class ReviewPage extends StatelessWidget {
         title: Text('My Resume'),
       ),
       body: FlutterResumeTemplate(
-        cvData: CVData(
-          name: _formData['name'],
-          summary: _formData['summary'],
-          profession: _formData['profession'],
-          email: _formData['email'],
-          phone: _formData['phone'],
-          address: _formData['address'],
-          socialLinks: _formData['links']
-              .map((link) => SocialLink(
-                    platform: link['platform'],
-                    url: link['url'],
-                  ))
-              .toList(),
-          education: _formData['education']
-              .map((e) => Educations(
-                    institution: e['institution'],
-                    degree: e['degree'],
-                    duration: e['duration'],
-                    description: e['description'],
-                  ))
-              .toList(),
-          skills: _formData['skills'],
-          projects: _formData['projects']
-              .map((p) => Project(
-                    name: p['name'],
-                    description: p['description'],
-                  ))
-              .toList(),
-          experience: _formData['experience']
-              .map((e) => Experience(
-                    company: e['company'],
-                    position: e['position'],
-                    duration: e['duration'],
-                    location: e['location'],
-                    description: e['description'],
-                  ))
-              .toList() ,
-          courses: _formData['courses']
-              .map((c) => Course(
-                    name: c['name'],
-                    platform: c['platform'],
-                  ))
-              .toList() ,
-          languages: Map<String, String>.from(_formData['languages']),
-        ),
-        templateTheme: TemplateTheme.classic,
-        mode: TemplateMode.shakeEditAndSaveMode,
-        onSaveResume: (globalKey) async =>
-            await PdfHandler().createResume(globalKey),
-      ),
+          cvData: CVData(
+            name: _formData['name'],
+            summary: _formData['summary'],
+            profession: _formData['profession'],
+            email: _formData['email'],
+            phone: _formData['phone'],
+            address: _formData['address'],
+            socialLinks: _formData['links']
+                .map((link) => SocialLink(
+                      platform: link['platform'],
+                      url: link['url'],
+                    ))
+                .toList(),
+            education: _formData['education']
+                .map((e) => Educations(
+                      institution: e['institution'],
+                      degree: e['degree'],
+                      duration: e['duration'],
+                      description: e['description'],
+                    ))
+                .toList(),
+            skills: _formData['skills'],
+            projects: _formData['projects']
+                .map((p) => Project(
+                      name: p['name'],
+                      description: p['description'],
+                    ))
+                .toList(),
+            experience: _formData['experience']
+                .map((e) => Experience(
+                      company: e['company'],
+                      position: e['position'],
+                      duration: e['duration'],
+                      location: e['location'],
+                      description: e['description'],
+                    ))
+                .toList(),
+            courses: _formData['courses']
+                .map((c) => Course(
+                      name: c['name'],
+                      platform: c['platform'],
+                    ))
+                .toList(),
+            languages: Map<String, String>.from(_formData['languages']),
+          ),
+          templateTheme: TemplateTheme.classic,
+          mode: TemplateMode.shakeEditAndSaveMode,
+          onSaveResume: (globalKey) async {
+            RecentActivityHelper.addRecentActivity(RecentAcitivty(
+                name: 'CV Generating Complete',
+                route: Routes.cvGenerator,
+                time: DateTime.now(),
+                icon: Icons.save.codePoint));
+            return await PdfHandler().createResume(globalKey);
+          }),
     );
   }
 
@@ -139,5 +147,4 @@ class ReviewPage extends StatelessWidget {
   //     ),
   //   );
   // }
-
 }

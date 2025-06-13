@@ -4,18 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path2job/features/Interview/presentation/cubit/interview_cubit.dart';
 import 'package:path2job/features/Interview/presentation/widgets/category_card.dart';
 
-import '../../../../hive/category.dart';
 
 class CategoriesListView extends StatelessWidget {
-  // Generate fake data
-  final List<Categories> fakeCategories = List.generate(
-    15,
-    (index) => Categories(
-      name: "Category ${index + 1}",
-      numberOfQuestions: (index + 1) * 5,
-    ),
-  );
-
+  
   @override
   Widget build(BuildContext context) {
     final categories = context.read<InterviewCubit>().categories;

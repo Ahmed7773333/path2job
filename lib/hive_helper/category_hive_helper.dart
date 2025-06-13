@@ -81,4 +81,9 @@ class CategoryHiveHelper {
     final box = Hive.box<Categories>(boxName);
     await box.clear();
   }
+
+  static Categories? getCategory(key) {
+    final box = Hive.box<Categories>(boxName);
+    return box.get(key);
+  }
 }

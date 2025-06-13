@@ -34,46 +34,41 @@ class _InterviewPageState extends State<InterviewPage> {
       appBar: AppBar(title: Text("Interview Preparation")),
       floatingActionButton: Padding(
         padding: EdgeInsets.only(left: 30.w),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ChatScreen()));
-              },
-              child: Icon(Icons.chat,size: 26.sp,),
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                // Handle floating action button press
-                _showAddCategorySheet(context);
-              },
-              child: Icon(Icons.add,size: 26.sp,),
-            ),
-          ],
+        child: FloatingActionButton(
+          onPressed: () {
+            // Handle floating action button press
+            _showAddCategorySheet(context);
+          },
+          child: Icon(
+            Icons.add,
+            size: 26.sp,
+          ),
         ),
       ),
-      body: BlocBuilder<InterviewCubit, InterviewState>(
-        builder: (context, state) {
+      body: BlocConsumer<InterviewCubit, InterviewState>(
+        listener: (BuildContext context, InterviewState state) {
           if (state is CategoriesSyncLoading) {
-            Components.circularProgressLoad(context);
-          } else if (state is CategoriesSyncError) {
+            // Components.circularProgressLoad(context);
+          }
+          if (state is CategoriesSyncError) {
             Components.showMessage(context,
                 content: state.message,
                 icon: Icons.error,
                 color: AppColor.errorColor);
-          } else if (state is CategoriesSyncEmpty) {
+          }
+          // if (state is CategoriesSyncEmpty || state is CategoriesSyncSuccess) {
+          //   Navigator.pop(context);
+          // }
+        },
+        builder: (context, state) {
+          if (state is CategoriesSyncEmpty) {
             return Center(
               child: Image.asset(Assets.emptyFaq),
             );
-          } else if (state is CategoriesSyncSuccess) {
-            return CategoriesListView();
-
-            // Your actual content widget
           }
-          return const Center(child: CircularProgressIndicator());
+          return CategoriesListView();
+
+          // Your actual content widget
         },
       ),
     );
@@ -95,5 +90,3 @@ class _InterviewPageState extends State<InterviewPage> {
     );
   }
 }
-
-

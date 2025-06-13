@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:path2job/hive/recent_acitivty.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
 
 import '../../../../hive_helper/recent_activity_helper.dart';
@@ -8,7 +9,7 @@ part 'home_layout_state.dart';
 
 class HomeLayoutCubit extends Cubit<HomeLayoutState> {
   HomeLayoutCubit() : super(HomeLayoutInitial());
-  var recentActivities = [];
+  List<RecentAcitivty> recentActivities = [];
 
   Future<void> sync() async {
     try {

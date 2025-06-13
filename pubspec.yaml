@@ -63,6 +63,7 @@ dependencies:
   flutter_shake_animated: ^0.0.5
   connectivity_plus: ^6.1.4
   chat_bubbles: ^1.6.0
+  flutter_paymob_egypt: ^0.0.9
 
 dev_dependencies:
   flutter_test:

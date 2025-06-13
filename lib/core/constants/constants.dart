@@ -3,4 +3,6 @@ class Constants {
   static const String supabaseKey =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwdGZqeHdtbmN1dXNsbHZkZGpvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MjE3OTAsImV4cCI6MjA2MDI5Nzc5MH0.mMTxyrKdZIc9G72fl_1qHv0zl_0nlRH7hBVcAEMA6Wk';
   static const String gimeniKey = 'AIzaSyAiAmUJ3wrL7plClcszSiQdbIf7V3hsfq0';
+  static const String payKey =
+      'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1Rnek9UZzJMQ0p1WVcxbElqb2lNVGN5TVRRNE1UUXpPQzR3TVRneE1UVWlmUS5SSnhmNjZKSURONTVWZy0zYVFxNHRCOWttMngyTEViYU5VNGJDdEVsSDktM0xpV2UtdVdyY3ZvYndlU2hzQkQwWDNZSjJKYXdQYjNDNms1QWtJRTAzQQ==';
 }

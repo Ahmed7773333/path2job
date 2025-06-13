@@ -9,6 +9,7 @@ import 'package:path2job/features/plan/presentation/cubit/plan_cubit.dart';
 import '../../features/auth/data/auth_remote_data_source.dart';
 import '../../features/auth/domain/usecases/signin_usecase.dart';
 import '../../features/auth/domain/usecases/signup_usecase.dart';
+import '../../features/home layout hr/presentation/bloc/home_layout_hr_bloc.dart';
 
 final GetIt sl = GetIt.instance;
 
@@ -28,11 +29,11 @@ void init() {
   sl.registerLazySingleton(() => SignUpUseCase(sl<AuthRepositoryImpl>()));
   sl.registerLazySingleton(() => GeminiHelper());
 
-
   // Auth Bloc
   sl.registerFactory(() => AuthCubit(sl<SignUpUseCase>(), sl<SignInUseCase>()));
   sl.registerFactory(() => PlanCubit());
   sl.registerFactory(() => HomeLayoutCubit());
-  sl.registerFactory(() => InterviewCubit(sl<GeminiHelper>()));
+  sl.registerFactory(() => HomeLayoutHrBloc());
 
+  sl.registerFactory(() => InterviewCubit(sl<GeminiHelper>()));
 }

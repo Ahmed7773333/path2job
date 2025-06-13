@@ -6,6 +6,9 @@ import 'package:path2job/core/utils/app_color.dart';
 import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
 import 'package:path2job/hive/recent_acitivty.dart';
 
+import '../../../home layout hr/presentation/pages/home_page.dart';
+import '../widgets/show_upgrade.dart';
+
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -55,13 +58,9 @@ class _HomePageState extends State<HomePage> {
               child: Text("Recent Activity",
                   style: Theme.of(context).textTheme.titleMedium),
             ),
-            _buildActivityList(),
+            buildActivityList(),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {}, // Generate CV action
-        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }
@@ -87,9 +86,16 @@ class _HomePageState extends State<HomePage> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       )),
-              IconButton(
-                icon: Icon(Icons.notifications, color: Colors.white),
-                onPressed: () {},
+              TextButton(
+                child: Text(
+                  'UPGRADE',
+                  style: TextStyle(color: Colors.amber),
+                ),
+                onPressed: () {
+                  Future.delayed(Duration.zero, () {
+                    showUpgradeDialog(context);
+                  });
+                },
               ),
             ],
           ),
@@ -123,10 +129,10 @@ class _HomePageState extends State<HomePage> {
                     Navigator.pushNamed(context, Routes.cvGenerator);
                     break;
                   case "Interview Prep":
-                    // Navigate to Interview Prep
+                    Navigator.pushNamed(context, Routes.interview);
                     break;
                   case "Career Plan":
-                    // Navigate to Career Plan
+                    Navigator.pushNamed(context, Routes.plan);
                     break;
                 }
               }, // Handle action
@@ -167,7 +173,7 @@ class _HomePageState extends State<HomePage> {
       surfaceTintColor: AppColor.secondaryColor,
       shadowColor: Colors.white70,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColor.primaryColor,width: 1.w),
+        side: BorderSide(color: AppColor.primaryColor, width: 1.w),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
@@ -185,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                     )),
                 Text("65%",
                     style: TextStyle(
-                      fontSize: 16.sp ,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                     )),
               ],
@@ -194,8 +200,7 @@ class _HomePageState extends State<HomePage> {
             LinearProgressIndicator(
               value: 0.65,
               backgroundColor: AppColor.secondaryColor,
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColor.primaryColor),
               minHeight: 8.h,
               borderRadius: BorderRadius.circular(4.r),
             ),
@@ -235,63 +240,6 @@ class _HomePageState extends State<HomePage> {
           color: completed ? AppColor.primaryColor : Colors.grey[200]!,
         ),
       ),
-    );
-  }
-
-  Widget _buildActivityList() {
-    return BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
-      builder: (context, state) {
-        if (state is RecentAcitivtyEmpty) {
-          return Center(
-            child: Text(
-              'No recent activities found.',
-            ),
-          );
-        }
-        if (state is RecentAcitivtySuccess) {
-          return Center(
-            child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 16.w),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount:
-                    context.read<HomeLayoutCubit>().recentActivities.length >= 3
-                        ? 3
-                        : context.read<HomeLayoutCubit>().recentActivities.length,
-                separatorBuilder: (context, index) =>
-                    Divider(height: 1.h, indent: 16.w),
-                itemBuilder: (context, index) {
-                  final RecentAcitivty activity =
-                      context.read<HomeLayoutCubit>().recentActivities[index];
-                  return ListTile(
-                    leading: Container(
-                      width: 40.w,
-                      height: 40.h,
-                      decoration: BoxDecoration(
-                        color: Colors.blue[50],
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(IconData(activity.icon!),
-                          color: AppColor.secondaryColor, size: 20.sp),
-                    ),
-                    title: Text(activity.name ?? "",
-                        style: TextStyle(fontWeight: FontWeight.w500)),
-                    subtitle: Text(activity.time.toString(),
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12.sp)),
-                    trailing: Icon(Icons.chevron_right, color: Colors.grey[400]),
-                    onTap: () {}, // Handle tap
-                  );
-                },
-              ),
-            ),
-          );
-        }
-        return CircularProgressIndicator();
-      },
     );
   }
 }

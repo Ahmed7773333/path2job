@@ -23,13 +23,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       job: fields[3] as String?,
       photoUrl: fields[4] as String?,
       photoLocal: fields[5] as Uint8List?,
+      isHr: fields[6] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.email)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(4)
       ..write(obj.photoUrl)
       ..writeByte(5)
-      ..write(obj.photoLocal);
+      ..write(obj.photoLocal)
+      ..writeByte(6)
+      ..write(obj.isHr);
   }
 
   @override

@@ -14,7 +14,11 @@ class SplachScreen extends StatelessWidget {
     if (!context.mounted) return;
 
     if (UserHiveHelper.getUser() != null) {
-      Navigator.of(context).pushReplacementNamed(Routes.home);
+      if(UserHiveHelper.getUser()!.isHr==true)
+      {Navigator.of(context).pushReplacementNamed(Routes.homeHr);}
+      else{
+        Navigator.of(context).pushReplacementNamed(Routes.home);
+      }
     } else {
       Navigator.of(context).pushReplacementNamed(Routes.signUp);
     }

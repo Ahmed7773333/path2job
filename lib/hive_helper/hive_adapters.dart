@@ -4,4 +4,5 @@ class HiveAdapters {
 	static const String questionAnswer = 'QuestionAnswerAdapter';
 	static const String category = 'CategoryAdapter';
 	static const String recentAcitivty = 'RecentAcitivtyAdapter';
+	static const String favs = 'FavsAdapter';
 }

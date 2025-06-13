@@ -1,12 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:path2job/hive/question_answer.dart';
 import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../core/network/gemini_helper.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../hive/category.dart';
+import '../../../../hive/recent_acitivty.dart';
+import '../../../../hive_helper/recent_activity_helper.dart';
 
 part 'interview_state.dart';
 
@@ -117,6 +121,11 @@ class InterviewCubit extends Cubit<InterviewState> {
   Future<void> deleteAllQuestions(String wantedJob) async {
     try {
       emit(DeletingCategorySuccess());
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Delete All Questions at $wantedJob',
+          route: Routes.interview,
+          time: DateTime.now(),
+          icon: Icons.delete.codePoint));
       await InterviewHiveHelper.deleteAllInterviews(wantedJob);
       questions.clear();
       updateCategoryNumber(wantedJob, questions.length);
@@ -130,6 +139,11 @@ class InterviewCubit extends Cubit<InterviewState> {
   Future<void> addQuestions(Interviews question) async {
     try {
       emit(InterviewLoading());
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Add Question',
+          route: Routes.interview,
+          time: DateTime.now(),
+          icon: Icons.add_card.codePoint));
       await InterviewHiveHelper.addInterview(question);
       questions = (await InterviewHiveHelper.getAllInterviews())
           .where((element) => element.category == question.category)
@@ -145,7 +159,17 @@ class InterviewCubit extends Cubit<InterviewState> {
   Future<void> deleteQuestion(String questionKey, String wantedJob) async {
     try {
       emit(InterviewLoading());
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Delete Question',
+          route: Routes.interview,
+          time: DateTime.now(),
+          icon: Icons.delete.codePoint));
       await InterviewHiveHelper.deleteInterview(questionKey);
+      await CategoryHiveHelper.updateCategory(wantedJob,
+          numberOfQuestions:
+              (CategoryHiveHelper.getCategory(wantedJob)?.numberOfQuestions ??
+                      1) -
+                  1);
       questions = (await InterviewHiveHelper.getAllInterviews())
           .where((element) => element.category == wantedJob)
           .toList();
@@ -164,6 +188,11 @@ class InterviewCubit extends Cubit<InterviewState> {
   Future<void> addCategory(Categories category) async {
     try {
       emit(CategoriesSyncLoading());
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Add Category',
+          route: Routes.interview,
+          time: DateTime.now(),
+          icon: Icons.save.codePoint));
       await CategoryHiveHelper.addCategory(category);
       categories = await CategoryHiveHelper.getAllCategories();
       emit(CategoriesSyncSuccess());
@@ -175,6 +204,11 @@ class InterviewCubit extends Cubit<InterviewState> {
   Future<void> generateQuestions(String jobTitle) async {
     emit(InterviewLoading());
     try {
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Generate Question with AI',
+          route: Routes.interview,
+          time: DateTime.now(),
+          icon: Icons.auto_awesome.codePoint));
       final Stream<String> stream = _gemini.streamAListOfQA(jobTitle);
       final Map<String, String> generatedQuestions =
           await _gemini.collectStreamToMap(stream);

@@ -24,6 +24,7 @@ class AuthCubit extends Cubit<AuthState> {
         phone: model.phone,
         job: model.job,
         photo: model.photo,
+        role: model.role
       ));
       emit(AuthSuccess());
     } catch (e) {

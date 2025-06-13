@@ -102,7 +102,8 @@ class _CategoryFaqState extends State<CategoryFaq> {
                     ],
                   );
                 } else if (state is InterviewLoaded) {
-                  return QuestionsList(context.read<InterviewCubit>().questions);
+                  return QuestionsList(
+                      context.read<InterviewCubit>().questions);
                 }
                 return const Center(child: CircularProgressIndicator());
               },
@@ -122,7 +123,11 @@ class _CategoryFaqState extends State<CategoryFaq> {
     return SizedBox(
       width: 120.w,
       child: ElevatedButton.icon(
-        icon: Icon(icon, size: 20.sp),
+        icon: Icon(
+          icon,
+          size: 20.sp,
+          color: Colors.white,
+        ),
         label: Text(label),
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

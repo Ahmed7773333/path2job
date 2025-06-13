@@ -23,21 +23,25 @@ class _CareerPlanPageState extends State<CareerPlanPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlanCubit, PlanState>(
-      builder: (context, state) {
+    return BlocConsumer<PlanCubit, PlanState>(
+      listener: (BuildContext context, PlanState state) {
         if (state is CourseSyncLoading) {
-          Components.circularProgressLoad(context);
+          // Components.circularProgressLoad(context);
         } else if (state is CourseSyncError) {
           Components.showMessage(context,
               content: state.error,
               icon: Icons.error,
               color: AppColor.errorColor);
-        } else if (state is CourseSyncEmpty) {
-          return const EmptyPlanPage();
-        } else if (state is CourseSyncSuccess) {
-          return PlanContent(); // Your actual content widget
         }
-        return const Center(child: CircularProgressIndicator());
+        // if (state is CourseSyncEmpty || state is CourseSyncSuccess) {
+        //   Navigator.pop(context);
+        // }
+      },
+      builder: (context, state) {
+        if (state is CourseSyncEmpty) {
+          return const EmptyPlanPage();
+        }
+        return PlanContent(); // Your actual content widget
       },
     );
   }

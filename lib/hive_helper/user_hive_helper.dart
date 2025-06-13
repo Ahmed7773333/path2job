@@ -1,8 +1,10 @@
 import 'package:hive/hive.dart';
 import 'package:path2job/hive/category.dart';
 import 'package:path2job/hive/course.dart';
+import 'package:path2job/hive/favs.dart';
 import 'package:path2job/hive/question_answer.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
+import 'package:path2job/hive_helper/favs_helper.dart';
 import 'package:path2job/hive_helper/interview_hive_helper.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -27,6 +29,7 @@ class UserHiveHelper {
     Hive.registerAdapter(QuestionAnswerAdapter());
     Hive.registerAdapter(CategoryAdapter());
     Hive.registerAdapter(RecentAcitivtyAdapter());
+    Hive.registerAdapter(FavsAdapter());
 
     // Open boxes
     await Hive.openBox<UserModel>(_userBoxName);
@@ -34,6 +37,7 @@ class UserHiveHelper {
     await Hive.openBox<Interviews>(InterviewHiveHelper.interviewBox);
     await Hive.openBox<Categories>(CategoryHiveHelper.boxName);
     await Hive.openBox<RecentAcitivty>(RecentActivityHelper.recentActivityBox);
+    await Hive.openBox<FavoritModel>(FavsHiveHelper.boxName);
   }
 
   // --------------------- User CRUD Operations ---------------------

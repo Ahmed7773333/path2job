@@ -6,6 +6,8 @@ import 'package:path2job/core/utils/assets.dart';
 import 'package:path2job/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:path2job/hive_helper/category_hive_helper.dart';
 import 'package:path2job/hive_helper/course_hive_helper.dart';
+import 'package:path2job/hive_helper/favs_helper.dart';
+import 'package:path2job/hive_helper/recent_activity_helper.dart';
 import 'package:path2job/hive_helper/user_hive_helper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/network/check_internet.dart';
@@ -40,10 +42,10 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(0.1), BlendMode.dstIn),
-                  image: AssetImage(Assets.logo),)
-            ),
+              colorFilter: new ColorFilter.mode(
+                  Colors.black.withOpacity(0.1), BlendMode.dstIn),
+              image: AssetImage(Assets.logo),
+            )),
           ),
           SingleChildScrollView(
             child: Padding(
@@ -60,24 +62,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       children: [
                         _buildProfileItem(Icons.person, 'Name',
-                            UserHiveHelper
-                                .getUser()
-                                ?.name ?? 'N/A'),
+                            UserHiveHelper.getUser()?.name ?? 'N/A'),
                         const Divider(),
                         _buildProfileItem(Icons.email, 'Email',
-                            UserHiveHelper
-                                .getUser()
-                                ?.email ?? 'N/A'),
+                            UserHiveHelper.getUser()?.email ?? 'N/A'),
                         const Divider(),
                         _buildProfileItem(Icons.phone, 'Phone',
-                            UserHiveHelper
-                                .getUser()
-                                ?.phone ?? 'N/A'),
+                            UserHiveHelper.getUser()?.phone ?? 'N/A'),
                         const Divider(),
                         _buildProfileItem(Icons.work, 'Job Title',
-                            UserHiveHelper
-                                .getUser()
-                                ?.job ?? 'N/A'),
+                            UserHiveHelper.getUser()?.job ?? 'N/A'),
                       ],
                     ),
                   ),
@@ -89,36 +83,49 @@ class _ProfilePageState extends State<ProfilePage> {
                         context,
                         Icons.info_outline,
                         'About Us',
-                            () => Navigator.pushNamed(context, Routes.about),
+                        () => Navigator.pushNamed(context, Routes.about),
                       ),
                       Divider(height: 1.h),
                       _buildNavigationTile(
                         context,
                         Icons.description,
                         'Terms & Conditions',
-                            () => Navigator.pushNamed(context, Routes.terms),
+                        () => Navigator.pushNamed(context, Routes.terms),
                       ),
                     ],
                   ),
                   SizedBox(height: 24.h),
                   // Logout Button
-                  BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      if (state is AuthLoading) {
-                        return const CircularProgressIndicator();
-                      }
+                  BlocConsumer<AuthCubit, AuthState>(
+                    listener: (context, state) {
                       if (state is LogoutSuccess) {
                         CourseHiveHelper.clearAllCourses();
                         UserHiveHelper.clearAllUsers();
                         // InterviewHiveHelper.deleteAllInterviews();
                         CategoryHiveHelper.clearAllCategories();
+                        RecentActivityHelper.clearActivities();
+                        FavsHiveHelper.clearAllFavss();
+
                         WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.pushReplacementNamed(context, Routes.signIn);
+                          Navigator.pushReplacementNamed(
+                              context, Routes.signIn);
                         });
                       }
+                    },
+                    builder: (context, state) {
+                      if (state is AuthLoading) {
+                        return const CircularProgressIndicator();
+                      }
+
                       return ElevatedButton.icon(
-                        icon: Icon(Icons.logout, size: 24.sp,),
-                        label: Text('Logout', style: TextStyle(fontSize: 20.sp),),
+                        icon: Icon(
+                          Icons.logout,
+                          size: 24.sp,
+                        ),
+                        label: Text(
+                          'Logout',
+                          style: TextStyle(fontSize: 20.sp),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red[400],
                           foregroundColor: Colors.white,
@@ -144,9 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return CircleAvatar(
         radius: 75.r,
         backgroundImage: NetworkImage(
-          UserHiveHelper
-              .getUser()
-              ?.photoUrl ??
+          UserHiveHelper.getUser()?.photoUrl ??
               'https://example.com/default.jpg',
         ),
       );
@@ -154,9 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return CircleAvatar(
         radius: 75.r,
         backgroundImage:
-        MemoryImage(UserHiveHelper
-            .getUser()
-            ?.photoLocal ?? Uint8List(0)),
+            MemoryImage(UserHiveHelper.getUser()?.photoLocal ?? Uint8List(0)),
       );
   }
 
@@ -165,7 +168,10 @@ class _ProfilePageState extends State<ProfilePage> {
       padding: EdgeInsets.symmetric(vertical: 8.0.w),
       child: Row(
         children: [
-          Icon(icon, size: 26.sp,),
+          Icon(
+            icon,
+            size: 26.sp,
+          ),
           SizedBox(width: 16.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,15 +181,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black
-                ),
+                    color: Colors.black),
               ),
               SizedBox(height: 4.h),
               Text(
                 value,
                 style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w500,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -193,14 +198,22 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildNavigationTile(BuildContext context,
-      IconData icon,
-      String title,
-      VoidCallback onTap,) {
+  Widget _buildNavigationTile(
+    BuildContext context,
+    IconData icon,
+    String title,
+    VoidCallback onTap,
+  ) {
     return ListTile(
-      leading: Icon(icon,),
-      title: Text(title,),
-      trailing: const Icon(Icons.chevron_right,),
+      leading: Icon(
+        icon,
+      ),
+      title: Text(
+        title,
+      ),
+      trailing: const Icon(
+        Icons.chevron_right,
+      ),
       onTap: onTap,
     );
   }

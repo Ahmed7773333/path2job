@@ -94,7 +94,15 @@ class CourseHiveHelper {
   }
 
   static Future<void> clearAllCourses() async {
-    final box = Hive.box<Course>(boxName);
-    await box.clear();
+    try {
+      await Supabase.instance.client
+          .from('Courses')
+          .delete()
+          .eq('key', UserHiveHelper.getUser()!.email);
+      final box = await Hive.box<Course>(boxName);
+      await box.clear();
+    } catch (e) {
+      debugPrint('Error adding course: $e');
+    }
   }
 }

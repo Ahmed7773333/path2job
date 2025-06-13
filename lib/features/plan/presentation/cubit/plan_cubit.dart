@@ -5,7 +5,10 @@ import 'package:path2job/core/network/gemini_helper.dart';
 import 'package:path2job/hive/course.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/routes/routes.dart';
+import '../../../../hive/recent_acitivty.dart';
 import '../../../../hive_helper/course_hive_helper.dart';
+import '../../../../hive_helper/recent_activity_helper.dart';
 
 part 'plan_state.dart';
 
@@ -54,6 +57,11 @@ class PlanCubit extends Cubit<PlanState> {
     try {
       emit(DeletingPlanLoading());
       // Simulate a network call or data fetching
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Delete Plan',
+          route: Routes.plan,
+          time: DateTime.now(),
+          icon: Icons.delete.codePoint));
       await CourseHiveHelper.clearAllCourses();
       planCourses = await CourseHiveHelper.getAllCourses();
       emit(DeletingPlanSuccess());
@@ -67,6 +75,11 @@ class PlanCubit extends Cubit<PlanState> {
     try {
       emit(UpdatingPlanLoading());
       // Simulate a network call or data fetching
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Update ${course.courseName}',
+          route: Routes.plan,
+          time: DateTime.now(),
+          icon: Icons.update.codePoint));
       await CourseHiveHelper.updateCourse(
         course.courseName!,
         link: course.link,
@@ -87,6 +100,11 @@ class PlanCubit extends Cubit<PlanState> {
     try {
       emit(PlanGeneratingLoading());
       // Simulate a network call or data fetching
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Generate Plan With AI',
+          route: Routes.plan,
+          time: DateTime.now(),
+          icon: Icons.auto_awesome.codePoint));
       final Stream<String> stream = GeminiHelper().streamAPlan(wantedJob);
       generatedCourses = await GeminiHelper().collectStreamToList(stream);
       if (generatedCourses.isEmpty) {
@@ -104,6 +122,11 @@ class PlanCubit extends Cubit<PlanState> {
   Future<void> addCourse(Course course) async {
     try {
       emit(SavingPlanLoading());
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Add Course',
+          route: Routes.plan,
+          time: DateTime.now(),
+          icon: Icons.save.codePoint));
       // Simulate a network call or data fetching
       await CourseHiveHelper.addCourse(course);
       emit(SavingPlanSuccess());
@@ -146,6 +169,11 @@ class PlanCubit extends Cubit<PlanState> {
   void addCustomCourse(Course course) {
     try {
       emit(SavingPlanLoading());
+      RecentActivityHelper.addRecentActivity(RecentAcitivty(
+          name: 'Add Course',
+          route: Routes.plan,
+          time: DateTime.now(),
+          icon: Icons.save.codePoint));
       customCourses.add(course);
       emit(CustomCoursesUpdated(customCourses)); // New state
     } catch (e) {

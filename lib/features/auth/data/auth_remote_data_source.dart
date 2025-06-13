@@ -38,6 +38,7 @@ class AuthRemoteDataSource {
           'phone': authModel.phone,
           'job': authModel.job,
           'photo_url': photoUrl, // Store photo URL in user metadata
+          'role':authModel.role,
         },
       );
 
@@ -53,6 +54,7 @@ class AuthRemoteDataSource {
         photoLocal: authModel.photo != null
             ? await authModel.photo!.readAsBytes()
             : null,
+            isHr:authModel.role,
       ));
     } catch (e) {
       throw AuthException(e.toString());
@@ -72,6 +74,7 @@ class AuthRemoteDataSource {
         phone: user?.userMetadata?['phone'] ?? '',
         job: user?.userMetadata?['job'] ?? '',
         photoUrl: user?.userMetadata?['photo_url'] ?? '', // Use the stored URL
+        isHr:user?.userMetadata?['role']??false,
       ));
     } catch (e) {
       throw AuthException(e.toString());

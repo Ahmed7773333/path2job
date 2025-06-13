@@ -4,6 +4,7 @@ import 'package:path2job/hive/course.dart';
 import 'package:path2job/hive/question_answer.dart';
 import 'package:path2job/hive/category.dart';
 import 'package:path2job/hive/recent_acitivty.dart';
+import 'package:path2job/hive/favs.dart';
 
 void registerAdapters() {
 	Hive.registerAdapter(UserModelAdapter());
@@ -11,4 +12,5 @@ void registerAdapters() {
 	Hive.registerAdapter(QuestionAnswerAdapter());
 	Hive.registerAdapter(CategoryAdapter());
 	Hive.registerAdapter(RecentAcitivtyAdapter());
+	Hive.registerAdapter(FavsAdapter());
 }

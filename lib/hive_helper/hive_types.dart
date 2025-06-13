@@ -4,4 +4,5 @@ class HiveTypes {
 	static const int questionAnswer = 2;
 	static const int category = 3;
 	static const int recentAcitivty = 4;
+	static const int favs = 5;
 }
