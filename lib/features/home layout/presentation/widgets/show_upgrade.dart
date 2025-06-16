@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path2job/features/home%20layout/presentation/cubit/home_layout_cubit.dart';
 import 'package:path2job/features/home%20layout/presentation/widgets/success.dart';
+import 'package:path2job/hive_helper/user_hive_helper.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/utils/app_color.dart';
@@ -53,6 +56,7 @@ void showUpgradeDialog(BuildContext context) {
                                     totalPrice:
                                         100, // 100 EGP --required pay with Egypt currency
                                     successResult: (data) {
+                                      context.read<HomeLayoutCubit>().upgrade();
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(

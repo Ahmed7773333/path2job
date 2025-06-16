@@ -19,7 +19,7 @@ class Course extends HiveObject {
   @HiveField(CourseFields.numberOfvideosDone)
   final int? numberOfvideosDone;
   @HiveField(CourseFields.done)
-  final bool? done;
+  bool? done;
 
   Course(
       {this.courseName,

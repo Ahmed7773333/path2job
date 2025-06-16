@@ -80,14 +80,13 @@ class PlanCubit extends Cubit<PlanState> {
           route: Routes.plan,
           time: DateTime.now(),
           icon: Icons.update.codePoint));
-      await CourseHiveHelper.updateCourse(
-        course.courseName!,
-        link: course.link,
-        name: course.courseName,
-        description: course.courseDescription,
-        numberOfVideos: course.numberOfvideos,
-        numberOfvideosDone: course.numberOfvideosDone,
-      );
+      await CourseHiveHelper.updateCourse(course.courseName!,
+          link: course.link,
+          name: course.courseName,
+          description: course.courseDescription,
+          numberOfVideos: course.numberOfvideos,
+          numberOfvideosDone: course.numberOfvideosDone,
+          done: course.done);
       planCourses = await CourseHiveHelper.getAllCourses();
       emit(UpdatingPlanSuccess());
       emit(CourseSyncSuccess());
@@ -158,6 +157,7 @@ class PlanCubit extends Cubit<PlanState> {
           link: course.split('|')[1].trim(),
           numberOfvideos: 0,
           numberOfvideosDone: 0,
+          done: false,
         ));
       }
       emit(SavingPlanSuccess());

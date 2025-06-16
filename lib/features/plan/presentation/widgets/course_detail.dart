@@ -30,13 +30,15 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
   @override
   void initState() {
     super.initState();
-    getCourse();
-    setState(() {});
+
+    setState(() {
+      getCourse();
+    });
   }
 
-  Future<void> getCourse() async {
-    course = (await CourseHiveHelper.getCourse(widget.course))!;
-    debugPrint('<<<<<<<<<<<<here<<<<<<<>>>>>>>${course.courseName}');
+  void getCourse() {
+    course = (CourseHiveHelper.getCourse(widget.course))!;
+    debugPrint('<<<<<<<<<<<<here<<<<<<<>>>>>>>${course.done}');
     _nameController.value =
         TextEditingController(text: course.courseName ?? '').value;
     _descController.value =
@@ -64,141 +66,146 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Course Details'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: _showDeleteConfirmation,
-          ),
-          // IconButton(
-          //     onPressed: () {
-          //       context
-          //           .read<PlanCubit>()
-          //           .updateCourse(course.copyWith(done: !(course.done ?? false)));
-          //     },
-          //     icon:  Icon((course.done ?? false)? Icons.check_box_outline_blank:Icons.check_box)),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Course Name
-            TextFormField(
-              readOnly: true,
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Course Name',
-                border: OutlineInputBorder(),
-              ),
-              style: Theme.of(context).textTheme.titleMedium,
+    return BlocBuilder<PlanCubit, PlanState>(builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Course Details'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: _showDeleteConfirmation,
             ),
-            SizedBox(height: 20.h),
-
-            // Expanded Description Field
-            TextFormField(
-              controller: _descController,
-              decoration: const InputDecoration(
-                labelText: 'Description',
-                border: OutlineInputBorder(),
-                alignLabelWithHint: true,
-              ),
-              maxLines: 5,
-              minLines: 3,
-              keyboardType: TextInputType.multiline,
-            ),
-            SizedBox(height: 20.h),
-
-            // Course Link
-            TextFormField(
-              controller: _linkController,
-              decoration: InputDecoration(
-                labelText: 'Course URL',
-                border: OutlineInputBorder(),
-                prefixIcon: IconButton(
-                  onPressed: () {
-                    context.read<PlanCubit>().launchUrll(course.link ?? '');
-                  },
-                  icon: Icon(Icons.launch),
-                ),
-              ),
-              keyboardType: TextInputType.url,
-            ),
-            SizedBox(height: 20.h),
-
-            // Progress Section
-            Text(
-              'Progress Tracking',
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10.h),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: course.done == true,
-                    onTap: () {
-                      if (course.done == true) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Course is already completed.'),
-                          ),
-                        );
-                      }
-                    },
-                    controller: _completedVideosController,
-                    decoration: const InputDecoration(
-                      labelText: 'Completed Videos',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 16.w),
-                Expanded(
-                  child: TextFormField(
-                    readOnly: course.done == true,
-                    onTap: () {
-                      if (course.done == true) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Course is already completed.'),
-                          ),
-                        );
-                      }
-                    },
-                    controller: _totalVideosController,
-                    decoration: const InputDecoration(
-                      labelText: 'Total Videos',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20.h),
-
-            // Progress Indicator
-            _buildProgressIndicator(),
-            SizedBox(height: 40.h),
+            IconButton(
+                onPressed: () {
+                  course.done = true;
+                  context
+                      .read<PlanCubit>()
+                      .updateCourse(course.copyWith(done: true));
+                },
+                icon: Icon((course.done ?? false) == true
+                    ? Icons.check_box
+                    : Icons.check_box_outline_blank)),
           ],
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: ElevatedButton(
-          onPressed: _saveChanges,
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(vertical: 16.h),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(20.r),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Course Name
+              TextFormField(
+                readOnly: true,
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Course Name',
+                  border: OutlineInputBorder(),
+                ),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(height: 20.h),
+
+              // Expanded Description Field
+              TextFormField(
+                controller: _descController,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  border: OutlineInputBorder(),
+                  alignLabelWithHint: true,
+                ),
+                maxLines: 5,
+                minLines: 3,
+                keyboardType: TextInputType.multiline,
+              ),
+              SizedBox(height: 20.h),
+
+              // Course Link
+              TextFormField(
+                controller: _linkController,
+                decoration: InputDecoration(
+                  labelText: 'Course URL',
+                  border: OutlineInputBorder(),
+                  prefixIcon: IconButton(
+                    onPressed: () {
+                      context.read<PlanCubit>().launchUrll(course.link ?? '');
+                    },
+                    icon: Icon(Icons.launch),
+                  ),
+                ),
+                keyboardType: TextInputType.url,
+              ),
+              SizedBox(height: 20.h),
+
+              // Progress Section
+              Text(
+                'Progress Tracking',
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10.h),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      readOnly: course.done == true,
+                      onTap: () {
+                        if (course.done == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Course is already completed.'),
+                            ),
+                          );
+                        }
+                      },
+                      controller: _completedVideosController,
+                      decoration: const InputDecoration(
+                        labelText: 'Completed Videos',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: TextFormField(
+                      readOnly: course.done == true,
+                      onTap: () {
+                        if (course.done == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Course is already completed.'),
+                            ),
+                          );
+                        }
+                      },
+                      controller: _totalVideosController,
+                      decoration: const InputDecoration(
+                        labelText: 'Total Videos',
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+
+              // Progress Indicator
+              _buildProgressIndicator(),
+              SizedBox(height: 40.h),
+            ],
           ),
-          child: const Text('Save Changes'),
         ),
-      ),
-    );
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.all(16.r),
+          child: ElevatedButton(
+            onPressed: _saveChanges,
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+            ),
+            child: const Text('Save Changes'),
+          ),
+        ),
+      );
+    });
   }
 
   Widget _buildProgressIndicator() {

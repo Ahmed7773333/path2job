@@ -26,6 +26,8 @@ class UserModel extends HiveObject {
   final Uint8List? photoLocal;
   @HiveField(6)
   final bool? isHr;
+  @HiveField(7)
+  final bool? isSub;
   UserModel({
     required this.email,
     this.name,
@@ -34,6 +36,7 @@ class UserModel extends HiveObject {
     this.photoUrl,
     this.photoLocal,
     this.isHr,
+    this.isSub,
   });
   CopyWith({
     String? email,
@@ -43,6 +46,7 @@ class UserModel extends HiveObject {
     String? photoUrl,
     Uint8List? photoLocal,
     bool? isHr,
+    bool? isSub,
   }) {
     return UserModel(
       email: email ?? this.email,
@@ -52,6 +56,7 @@ class UserModel extends HiveObject {
       photoUrl: photoUrl ?? this.photoUrl,
       photoLocal: photoLocal ?? this.photoLocal,
       isHr: isHr ?? this.isHr,
+      isSub: isSub ?? this.isSub,
     );
   }
 }

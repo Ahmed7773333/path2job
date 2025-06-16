@@ -35,13 +35,13 @@ class CourseHiveHelper {
     }
   }
 
-  static Future<Course?> getCourse(String courseKey) async {
-    final box = await Hive.box<Course>(boxName);
+  static Course? getCourse(String courseKey) {
+    final box = Hive.box<Course>(boxName);
     return box.get(courseKey);
   }
 
-  static Future<List<Course>> getAllCourses() async {
-    final box = await Hive.box<Course>(boxName);
+  static List<Course> getAllCourses() {
+    final box = Hive.box<Course>(boxName);
     return box.values.toList();
   }
 
@@ -65,6 +65,7 @@ class CourseHiveHelper {
     String? description,
     int? numberOfVideos,
     int? numberOfvideosDone,
+    bool? done,
   }) async {
     try {
       await Supabase.instance.client.from('Courses').update({
@@ -85,6 +86,7 @@ class CourseHiveHelper {
             link: link ?? course.link,
             numberOfvideos: numberOfVideos ?? course.numberOfvideos,
             numberOfvideosDone: numberOfvideosDone ?? course.numberOfvideosDone,
+            done: done ?? course.done,
           ),
         );
       }

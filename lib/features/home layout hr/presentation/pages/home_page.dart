@@ -196,17 +196,14 @@ Widget buildActivityList() {
           itemBuilder: (context, index) {
             final activity = visibleActivities[index];
             return ListTile(
-              // leading: CircleAvatar(
-              //   radius: 20.r,
-              //   child: Icon(
-              //     IconData(
-              //       int.parse(activity.icon!.toString(), radix: 16),
-              //       fontFamily: 'MaterialIcons',
-              //     ),
-              //     color: Colors.black,
-              //     size: 20.sp,
-              //   ),
-              // ),
+              leading: Icon(
+                IconData(
+                  activity.icon ?? 0,
+                  fontFamily: 'MaterialIcons',
+                ),
+                color: Colors.black,
+                size: 20.sp,
+              ),
               title: Text(activity.name ?? "",
                   style: TextStyle(fontWeight: FontWeight.w500)),
               subtitle: Text(

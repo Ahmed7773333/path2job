@@ -10,22 +10,17 @@ import 'package:path2job/hive_helper/user_hive_helper.dart';
 import '../../../../hive/course.dart';
 import 'add_course_sheet.dart';
 
+double calculateTotalProgress(List<Course> courses) {
+  if (courses.isEmpty) return 0;
+
+  int totalCourses = courses.length;
+  int completedCourses = courses.where((course) => course.done == true).length;
+
+  return (completedCourses / totalCourses) * 100;
+}
+
 class PlanContent extends StatelessWidget {
   const PlanContent({super.key});
-
-  double _calculateTotalProgress(List<Course> courses) {
-    if (courses.isEmpty) return 0;
-
-    int totalVideos = 0;
-    int completedVideos = 0;
-
-    for (final course in courses) {
-      totalVideos += course.numberOfvideos ?? 0;
-      completedVideos += course.numberOfvideosDone ?? 0;
-    }
-
-    return totalVideos > 0 ? (completedVideos / totalVideos) * 100 : 0;
-  }
 
   void _showAddCourseSheet(BuildContext context) {
     showModalBottomSheet(
@@ -46,13 +41,14 @@ class PlanContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<PlanCubit>();
-    final courses = cubit.planCourses;
-    final totalProgress = _calculateTotalProgress(courses);
-    debugPrint('Total Progress: $totalProgress');
+    final totalProgress = calculateTotalProgress(cubit.planCourses);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'You will be ${UserHiveHelper.getUser()?.job ?? 'No job found'}',style: TextStyle(fontSize: 18.sp),),
+          'You will be ${UserHiveHelper.getUser()?.job ?? 'No job found'}',
+          style: TextStyle(fontSize: 18.sp),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.sync),
@@ -89,7 +85,7 @@ class PlanContent extends StatelessWidget {
                 Text(
                   'Overall Progress',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: AppColor.textColor,
+                        color: AppColor.textColor,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -105,7 +101,7 @@ class PlanContent extends StatelessWidget {
                         strokeWidth: 12.w,
                         backgroundColor: AppColor.secondaryColor,
                         valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).primaryColor,
+                          AppColor.blue,
                         ),
                       ),
                     ),
@@ -113,7 +109,7 @@ class PlanContent extends StatelessWidget {
                       '${totalProgress.toStringAsFixed(1)}%',
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            color: AppColor.textColor,
+                                color: AppColor.textColor,
                                 fontWeight: FontWeight.bold,
                               ),
                     ),
@@ -121,11 +117,11 @@ class PlanContent extends StatelessWidget {
                 ),
                 SizedBox(height: 18.h),
                 Text(
-                  '${courses.length} courses in your plan',
+                  '${cubit.planCourses.length} courses in your plan',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColor.textColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+                        color: AppColor.textColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
               ],
             ),
@@ -133,15 +129,15 @@ class PlanContent extends StatelessWidget {
 
           // Courses List
           Expanded(
-            child: courses.isEmpty
+            child: cubit.planCourses.isEmpty
                 ? const Center(
                     child: Text('No courses added yet'),
                   )
                 : ListView.builder(
                     padding: EdgeInsets.only(top: 16.h),
-                    itemCount: courses.length,
+                    itemCount: cubit.planCourses.length,
                     itemBuilder: (context, index) {
-                      final course = courses[index];
+                      final course = cubit.planCourses[index];
                       return CourseCard(
                         course: course,
                         onTap: () {

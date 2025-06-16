@@ -41,6 +41,13 @@ class _CareerPlanPageState extends State<CareerPlanPage> {
         if (state is CourseSyncEmpty) {
           return const EmptyPlanPage();
         }
+        if (state is CourseSyncLoading) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          );
+        }
         return PlanContent(); // Your actual content widget
       },
     );
